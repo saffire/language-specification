@@ -54,7 +54,7 @@ All options are possible too:
 
 ::
 
-    import io from io as std_console;
+    import io from io as std_io;
     import console from io as std_console;
     std_console.print("hello world");
 
@@ -118,3 +118,4 @@ It's even possible to alias one namespace to multiple aliases:
 
 :Authors:
    Joshua Thijssen
+   Michelle Sanver
