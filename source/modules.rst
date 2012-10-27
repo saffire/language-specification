@@ -118,3 +118,4 @@ It's even possible to alias one namespace to multiple aliases:
 
 :Authors:
    Joshua Thijssen
+   Michelle Sanver
