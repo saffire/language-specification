@@ -28,6 +28,7 @@ Contents:
    interfaces
    overloading
    magic-methods
+   streams
 
 
 Indices and tables

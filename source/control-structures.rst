@@ -67,7 +67,7 @@ The while-structure also accepts an else-statement. If the **initial** evaluatio
 
 
 do-while
--------
+--------
 A **do-while** loop is similar to a `while`_ loop except the loop will **at least** be executed once, since the
 evaluation will be done at the end. This means that do-while does not support the else statement.
 
@@ -189,7 +189,7 @@ list, or when `breakelse`_ is issued inside the foreach{} block.
 
 break
 -----
-**Break** can be used to end the execution of `for`_, `foreach`_, `while`_, `dowhile`_ and `switch`_ statements. See the
+**Break** can be used to end the execution of `for`_, `foreach`_, `while`_, `do-while`_ and `switch`_ statements. See the
 corresponding statements for more information.
 
 
