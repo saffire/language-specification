@@ -172,7 +172,7 @@ It's also possible to use type hinting to make sure the arguments are from a cer
 
 
 Variable argument lists
-=======================
+-----------------------
 It's possible to have a variable number of arguments when calling a function. A good example might be a printf() method,
 which needs at least one argument, but might have more.
 
@@ -212,7 +212,7 @@ Variable arguments can be used like the following example:
 
 
 toargs()
-========
+********
 The toargs() method found in list, will convert elements from a list into a full list. This method can ONLY be used
 when calling a method.
 
