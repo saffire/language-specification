@@ -54,9 +54,9 @@ This will create an object $a, which has been instantiated from class Foo();
 
 
 
-Extending classes:
-==================
-A class can extend another class. Note that saffire only support single inheritance model, not multiple inheritance.
+Extending classes
+=================
+A class can extend another class. Note that Saffire only support single inheritance model, not multiple inheritance.
 
 ::
 
@@ -90,7 +90,7 @@ Constants are like readonly properties. They are usually written in uppercase.
 
 Properties
 ----------
-Properties *must* implement a `Visiblity`_. There is no assumed visibilty.
+Properties *must* implement a `Visibility`_. There is no assumed visibility.
 
 ::
 
@@ -170,6 +170,68 @@ It's also possible to use type hinting to make sure the arguments are from a cer
 
 	Foo().Bar(1, Bar());          // Error: 1 is a Numerical, not a string.
 
+
+Variable argument lists
+-----------------------
+It's possible to have a variable number of arguments when calling a function. A good example might be a printf() method,
+which needs at least one argument, but might have more.
+
+::
+
+    class Foo {
+        public method Bar(String $format, ... $args) {
+        }
+    }
+
+The ellipsis (...) will tell Saffire that the argument ($args, in this case) actually holds a list of additional
+arguments. They may or may not be typehinted as well, to ensure that all variable arguments are from the specified type.
+
+.. note::
+	It's not possible to use 2 ellipsis in one argument list.
+
+
+Variable arguments can be used like the following example:
+
+::
+
+    class Foo {
+        public method Bar(String $format, String ... $args) {
+            //
+            if ($args.length() == 2) {
+                io.print("There are 2 arguments!");
+            }
+
+            // Iterate additional arguments
+            foreach ($args as $arg) {
+                io.print("Argument: ", $arg);
+            }
+
+            io.print($format, $arg.toargs());
+        }
+    }
+
+
+toargs()
+========
+The toargs() method found in list, will convert elements from a list into a full list. This method can ONLY be used
+when calling a method.
+
+::
+
+    // List of 3 strings
+    $args = list["foo", "bar", "baz"];
+
+    // This will not work, since $args is a LIST
+    io.print("The arguments are: %s, %s and %s\n", $args);
+
+    // This will work, since $args is expanded to 3 strings
+    io.print("The arguments are: %s, %s and %s\n", $args.toargs());
+
+
+
+
+Return values
+-------------
 
 Every method will return at least one value. You can return an explicit value by using 'return', otherwise the result
 of the last used action will be returned.
