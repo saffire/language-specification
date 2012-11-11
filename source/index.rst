@@ -29,6 +29,7 @@ Contents:
    overloading
    magic-methods
    streams
+   internals/index
 
 
 Indices and tables
@@ -39,6 +40,7 @@ Indices and tables
 * :ref:`search`
 
 
+:Date: |today|
 
 :Authors:
    Joshua Thijssen
