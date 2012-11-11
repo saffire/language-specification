@@ -173,7 +173,7 @@ htmlhelp_basename = 'SaffireLanguageSpecificationdoc'
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'SaffireLanguageSpecification.tex', u'Saffire Language Specification Documentation',
-   u'Joshua Thijssen, Dolf Schimmel', 'manual'),
+   u'Saffire Group', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

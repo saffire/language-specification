@@ -98,11 +98,11 @@ It's also possible to alias our namespaces if needed:
     use framework::http::request as request;
     use framework::http::response as response;
 
-    $req = request::request();
-    $rsp = response::response();
-    if ($req.method == "GET") {
-        $rsp.code = 405;
-        $rsp.message = "Method not allowed";
+    req = request::request();
+    rsp = response::response();
+    if (req.method == "GET") {
+        rsp.code = 405;
+        rsp.message = "Method not allowed";
     }
 
 It's even possible to alias one namespace to multiple aliases:

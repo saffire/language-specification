@@ -17,18 +17,7 @@ Contents:
    using-saffire
    saffire-from-other-languages
    tutorials
-   typing
-   scalar-types
-   data-structures
-   keywords
-   control-structures
-   modules
-   operators
-   objects
-   interfaces
-   overloading
-   magic-methods
-   streams
+   language/index
    internals/index
 
 

@@ -12,16 +12,16 @@ Saffire interfaces are boilerplate classes that a class can implement. They are 
 ::
 
 	interface Foo {
-		public method Bar(String $a);
-		public method Baz(String $b);
+		public method Bar(String a);
+		public method Baz(String b);
 	}
 
 	class Bar implements Foo {
-		public method Bar(String $a) {
+		public method Bar(String a) {
 			// Body of method
 		}
 
-		public method Baz(String $b) {
+		public method Baz(String b) {
 			// Body of method
 		}
 	}

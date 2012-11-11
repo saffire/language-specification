@@ -46,15 +46,15 @@ Lists are data structures with values only. A value can be available multiple ti
 
 ::
 
-	$a = list[ "foo", "bar", "baz" ];
+	a = list[ "foo", "bar", "baz" ];
 
 this represents a list of three Strings, which can be accessed through the ``[index]`` notation:
 
 ::
 
-	$a[0]  // "foo"
-	$a[1]  // "baz"
-	$a[2]  // "bar"
+	a[0]  // "foo"
+	a[1]  // "baz"
+	a[2]  // "bar"
 
 
 
@@ -65,10 +65,10 @@ Hashes have the same properties as lists, but each value has a unique key.
 
 ::
 
-	$a = hash[ 1:"foo", 2:"bar", "test":"baz" ];
+	a = hash[ 1:"foo", 2:"bar", "test":"baz" ];
 
-	$a[1]       // "foo"
-	$a["test"]  // "baz"
+	a[1]       // "foo"
+	a["test"]  // "baz"
 
 
 
@@ -80,8 +80,8 @@ be ignored.
 
 ::
 
-	$a = [[ "foo", "bar", "baz", "foo", "bar" ]];
-	// $a holds "foo", "bar" and "baz"
+	a = [[ "foo", "bar", "baz", "foo", "bar" ]];
+	// a holds "foo", "bar" and "baz"
 
 Sets can be used to quickly add, subtract or check items.
 
@@ -94,17 +94,17 @@ other elements.
 
 ::
 
-	$a = ( "foo", "bar" );
+	a = ( "foo", "bar" );
 
 Tuples are read-only lists. They can be used to group values.
 
 ::
 
-	$a, $b, $c = "foo", ("bar", "baz"), "qux";
+	a, b, c = "foo", ("bar", "baz"), "qux";
 
-	// $a = "foo"
-	// $b = ("bar", "baz")
-	// $c = "qux";
+	// a = "foo"
+	// b = ("bar", "baz")
+	// c = "qux";
 
 
 

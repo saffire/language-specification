@@ -15,17 +15,17 @@ automatically.
 
 ::
 
-    $a = "foo";
-    $b = 1;
-    $c = $a + $b;
+    a = "foo";
+    b = 1;
+    c = a + b;
 
 In this case, Saffire would throw an exception. But you can cast explicitly:
 
 ::
 
-    $a = "foo";
-    $b = 1;
-    $c = $a + $b.string();  // $c == "foo1"
+    a = "foo";
+    b = 1;
+    c = a + b.string();  // c == "foo1"
 
 
 coercion

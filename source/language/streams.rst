@@ -18,8 +18,8 @@ Reads (or writes) directory from a HTTP stream:
 
 ::
 
-    $file = io.open("http://www.saffire-lang.org:80/index.html");
-    $contents = $file.read(1024);
-    $file.close();
+    file = io.open("http://www.saffire-lang.org:80/index.html");
+    contents = file.read(1024);
+    file.close();
 
 
