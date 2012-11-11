@@ -7,7 +7,7 @@ Hello world
 
 ::
 
-    use io;
+    import io;
 
     io.print("hello world!");
 
@@ -20,16 +20,16 @@ Simple calculations
 
 ::
 
-    use io;
+    import io;
 
-    $a = 1;
-    $a += 1;
+    a = 1;
+    a += 1;
 
-    io.print("The value of $a: ", $a , "\n");
+    io.print("The value of a: ", a , "\n");
 
 Variables do not have to be declared, but instantiated. Using uninstantiated variables will result in an error.
-Variables inside strings aren't automatically converted to their values. Using ``$a`` inside a string will result in a
-**literal** ``$a``. If you want to use the **value** of ``$a``, you must add them separately. The print-method allows
+Variables inside strings aren't automatically converted to their values. Using ``a`` inside a string will result in a
+**literal** ``a``. If you want to use the **value** of ``a``, you must add them separately. The print-method allows
 multiple arguments so you can easily concatenate the string and values.
 
 
@@ -38,14 +38,14 @@ Classes and Objects
 
 ::
 
-    use io;
+    import io;
 
     class Foo() {
         public method ctor() {
         }
 
         public method foo() {
-            return $a;
+            return self.a;
         }
     }
 

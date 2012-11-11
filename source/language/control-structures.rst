@@ -8,37 +8,37 @@ An if-statement lets you execute code only when a certain condition has been met
 
 ::
 
-	if ($a == 1) {
-		// only done when $a equals 1
+	if (a == 1) {
+		// only done when a equals 1
 	}
 
 When you only have one statement, you can omit the curly brackets:
 
 ::
 
-	if ($a == 1) dothis();
+	if (a == 1) dothis();
 
 
 It's also possible to have an else-statement after the if, which gets executed if the condition is NOT met:
 
 ::
 
-	if ($a == 1) {
-		// done when $a equals 1
+	if (a == 1) {
+		// done when a equals 1
 	} else {
-		// done when $a not equals 1
+		// done when a not equals 1
 	}
 
 It's also possible to chain if/else statements:
 
 ::
 
-	if ($a == 1) {
-		// done when $a equals 1
-	} else if ($a == 2) {
-		// done when $a equals 2
+	if (a == 1) {
+		// done when a equals 1
+	} else if (a == 2) {
+		// done when a equals 2
 	} else {
-		// done when $a not equals 1 or 2
+		// done when a not equals 1 or 2
 	}
 
 
@@ -49,8 +49,8 @@ A **while** loop will iterate over the statements until the condition will be fa
 
 ::
 
-	while ($a < 10) {
-		$a++;
+	while (a < 10) {
+		a++;
 	}
 
 The while-structure also accepts an else-statement. If the **initial** evaluation is NOT True **or** when `breakelse`_ is
@@ -58,10 +58,10 @@ The while-structure also accepts an else-statement. If the **initial** evaluatio
 
 ::
 
-	while ($a < 10) {
-		$a++;
+	while (a < 10) {
+		a++;
 	} else {
-		// Called when $a initially was 10 or more
+		// Called when a initially was 10 or more
 	}
 
 
@@ -73,10 +73,10 @@ evaluation will be done at the end. This means that do-while does not support th
 
 ::
 
-	$a = 1;
+	a = 1;
 	do {
-		$a++;
-	} while ($a < 10);
+		a++;
+	} while (a < 10);
 
 
 
@@ -94,8 +94,8 @@ A classic way to loop over 1 to 10:
 
 ::
 	
-	for ($i=1; $i<=10; $i++) {
-		// $1 will be 1 to 10
+	for (i=1; i<=10; i++) {
+		// 1 will be 1 to 10
 	}
 
 All expression can be empty. If expr2 is empty, it will be considered True. The following statement will be a endless
@@ -115,7 +115,7 @@ The **foreach** operator allows you to iterator over **any** object that impleme
 
 ::
 
-	foreach ($object as $value) {
+	foreach (object as value) {
 		// Do something with value
 	}
 
@@ -130,21 +130,21 @@ there aren't any keys.
 
 ::
 
-	foreach (list["foo", "bar"] as $value, $key) {
-			// $value = "foo" or "bar"
-			// $key will always be Null
+	foreach (list["foo", "bar"] as value, key) {
+			// value = "foo" or "bar"
+			// key will always be Null
 	}
 
 Data structures like hashes, which contain keys, will return keys as well.
 
 ::
 
-	foreach (hash[2 : "foo", 4: "bar"] as $value, $key) {
-			// $value = "foo" or "bar"
-			// $key will be 2 or 4
+	foreach (hash[2 : "foo", 4: "bar"] as value, key) {
+			// value = "foo" or "bar"
+			// key will be 2 or 4
 	}
 
-There is an additional field called $meta, which is filled with foreach metadata:
+There is an additional field called ``meta``, which is filled with foreach metadata:
 
 .index
 	The current index, 0-based
@@ -155,23 +155,23 @@ There is an additional field called $meta, which is filled with foreach metadata
 .count
 	The number of elements, if available and known
 .key
-	The key, as returned by $key
+	The key, as returned by ``key``
 .val
-	The value, as returned by $value
+	The value, as returned by ``value``
 
 
 .. note:: 
 	.iter() methods can add additional information to the meta data, for instance, with a priority-queue, the actual
-	priority of an element could be stored in $meta.priority
+	priority of an element could be stored in ``meta.priority``
 
 ::
 
-	foreach (String.range('a','z') as $value, $key, $meta) {
+	foreach (String.range('a','z') as value, key, meta) {
 		if (meta.first) {
-			// First element ($value = 'a')
+			// First element (value = 'a')
 		}
 		if (meta.last) {
-			// Last element ($value = 'z')
+			// Last element (value = 'z')
 		}
 		// meta.count == 26
 		// meta.index == 0..25
@@ -201,12 +201,12 @@ statement, but if there is an else statement it will be executed.
 
 ::
 
-	while ($a) {
-		$a--;
-		if ($a == 5) breakelse;	// Break the loop, and execute else
-		if ($a == 3) break;	// Break the loop, but don't execute else
+	while (a) {
+		a--;
+		if (a == 5) breakelse;	// Break the loop, and execute else
+		if (a == 3) break;	// Break the loop, but don't execute else
 	} else {
-		// Do something else when $a initially was false, or when breakelse was triggered
+		// Do something else when a initially was false, or when breakelse was triggered
 	}
 
 .. note::
@@ -221,11 +221,11 @@ directly executes those statements.
 
 ::
 
-	if ($a == 1) {
+	if (a == 1) {
 		...
-	} else if ($a == 2) {
+	} else if (a == 2) {
 		...		
-	} else if ($a == 3) {
+	} else if (a == 3) {
 		...	
 	} else {
 		...
@@ -235,7 +235,7 @@ With **switch** this can be rewritten as:
 
 ::
 
-	switch ($a) {
+	switch (a) {
 		case 1 :
 			...
 			break;
@@ -255,15 +255,15 @@ With **switch** this can be rewritten as:
 
 ::
 
-	switch ($a) {
+	switch (a) {
 		case 1 :
-			$a += 1;
+			a += 1;
 			// Will continue with the next statement
 		case 2 :
-			$a += 1;
+			a += 1;
 			// Will continue with the next statement
 		case 3:
-			$a += 1;
+			a += 1;
 	}
 
 
@@ -274,9 +274,9 @@ continue
 
 ::
 
-	for ($i=0; $i!=10; $i++) {
-		if ($i % 2 == 0) continue;
-		// $i is an odd number.
+	for (i=0; i!=10; i++) {
+		if (i % 2 == 0) continue;
+		// i is an odd number.
 	}
 
 .. note::
@@ -304,7 +304,7 @@ script.
 		}
 	}
 
-	$a = Foo.Bar();   // $a = "Baz"
+	a = Foo.Bar();   // a = "Baz"
 
 .. note::
 	The return value can include zero or more arguments. Those arguments are directly returned to the caller. If at the end
@@ -347,9 +347,9 @@ Also, you cannot jump inside a loop.
 ::
 
 	goto loop;
-	while ($a < 10) {
+	while (a < 10) {
 	loop:
-		$a++;
+		a++;
 	}
 
 .. warning::

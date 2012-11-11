@@ -45,9 +45,9 @@ The processes of creating objects from classes is called instantiating. To insta
     class Foo {
     }
 
-    $a = Foo();
+    a = Foo();
 
-This will create an object $a, which has been instantiated from class Foo();
+This will create an object ``a``, which has been instantiated from class Foo();
 
 .. note::
 	It is not possible to instantiate the `object` class. This will result in an exception.
@@ -95,9 +95,9 @@ Properties *must* implement a `Visibility`_. There is no assumed visibility.
 ::
 
 	class Foo {
-		public property $foo = "bar";
-		protected property $foo = "bar";
-		private  property $foo = "bar";
+		public property foo = "bar";
+		protected property foo = "bar";
+		private  property foo = "bar";
 	}
 
 Properties can either have a default assigned value, or none. In that case, it will automatically be filled with the Null object.
@@ -106,10 +106,10 @@ Properties can either have a default assigned value, or none. In that case, it w
 ::
 
 	class Foo {
-		public property $foo = Null;
-		public property $bar;
+		public property foo = Null;
+		public property bar;
 
-		// $bar and $foo are both Null
+		// bar and foo are both Null
 	}
 
 
@@ -132,11 +132,11 @@ A method can have an optional argument list:
 ::
 
 	class Foo {
-		public method Bar($arg1, $arg2) {
+		public method Bar(arg1, arg2) {
 		}
 	}
 
-	Foo().Bar("this", "works");	// $arg1 = "this", $arg2 = "works"
+	Foo().Bar("this", "works");	// arg1 = "this", arg2 = "works"
 
 
 An argument can also have a default value, in case nothing has been specified by the caller.
@@ -144,13 +144,13 @@ An argument can also have a default value, in case nothing has been specified by
 ::
 
 	class Foo {
-		public method Bar($arg1 = "var", $arg2 = "default") {
+		public method Bar(arg1 = "var", arg2 = "default") {
 		}
 	}
 
-	Foo().Bar();                 // $arg1 = "var", $arg2 = "default"
-	Foo().Bar("this");           // $arg1 = "this", $arg2 = "default"
-	Foo().Bar("this", "works");  // $arg1 = "this", $arg2 = "works"
+	Foo().Bar();                 // arg1 = "var", arg2 = "default"
+	Foo().Bar("this");           // arg1 = "this", arg2 = "default"
+	Foo().Bar("this", "works");  // arg1 = "this", arg2 = "works"
 
 
 It's also possible to use type hinting to make sure the arguments are from a certain class or interface:
@@ -158,7 +158,7 @@ It's also possible to use type hinting to make sure the arguments are from a cer
 ::
 
 	class Foo {
-		public method Bar(String $arg1, Foo $arg2) {
+		public method Bar(String arg1, Foo arg2) {
 		}
 	}
 
@@ -179,11 +179,11 @@ which needs at least one argument, but might have more.
 ::
 
     class Foo {
-        public method Bar(String $format, ... $args) {
+        public method Bar(String format, ... args) {
         }
     }
 
-The ellipsis (...) will tell Saffire that the argument ($args, in this case) actually holds a list of additional
+The ellipsis (...) will tell Saffire that the argument (args, in this case) actually holds a list of additional
 arguments. They may or may not be typehinted as well, to ensure that all variable arguments are from the specified type.
 
 .. note::
@@ -195,18 +195,18 @@ Variable arguments can be used like the following example:
 ::
 
     class Foo {
-        public method Bar(String $format, String ... $args) {
+        public method Bar(String format, String ... args) {
             //
-            if ($args.length() == 2) {
+            if (args.length() == 2) {
                 io.print("There are 2 arguments!");
             }
 
             // Iterate additional arguments
-            foreach ($args as $arg) {
-                io.print("Argument: ", $arg);
+            foreach (args as arg) {
+                io.print("Argument: ", arg);
             }
 
-            io.print($format, $arg.toargs());
+            io.print(format, arg.toargs());
         }
     }
 
@@ -219,13 +219,13 @@ when calling a method.
 ::
 
     // List of 3 strings
-    $args = list["foo", "bar", "baz"];
+    args = list["foo", "bar", "baz"];
 
-    // This will not work, since $args is a LIST
-    io.print("The arguments are: %s, %s and %s\n", $args);
+    // This will not work, since args is a LIST
+    io.print("The arguments are: %s, %s and %s\n", args);
 
-    // This will work, since $args is expanded to 3 strings
-    io.print("The arguments are: %s, %s and %s\n", $args.toargs());
+    // This will work, since args is expanded to 3 strings
+    io.print("The arguments are: %s, %s and %s\n", args.toargs());
 
 
 
@@ -240,17 +240,17 @@ of the last used action will be returned.
 
     class Foo {
         public method Bar() {
-            $a = 5;
+            a = 5;
         }
 
         public method Baz() {
-            $a = 5;
+            a = 5;
             return 2;
         }
     }
 
-    $b = Foo().Bar();     // returns 5
-    $b = Foo().Baz();     // returns 2;
+    b = Foo().Bar();     // returns 5
+    b = Foo().Baz();     // returns 2;
 
 
 Self
@@ -260,14 +260,14 @@ You probably want to reference class properties inside the class methods. This i
 ::
 
     class Foo {
-        protected property $prop;
+        protected property prop;
 
-        public method Bar($arg) {
-            self.$prop = $arg;
+        public method Bar(arg) {
+            self.prop = arg;
         }
 
         public method getProp() {
-            return self.$prop;
+            return self.prop;
         }
     }
 
@@ -284,12 +284,12 @@ If classes are extended from other classes, sometimes you want to call those met
 ::
 
     class Foo {
-        public method Baz($arg) { }
+        public method Baz(arg) { }
     }
 
     class Bar extends Foo {
-        public method Baz($arg) {
-            parent.Baz($arg);       // Calls the Baz method from the Foo class
+        public method Baz(arg) {
+            parent.Baz(arg);       // Calls the Baz method from the Foo class
         }
     }
 
@@ -304,23 +304,23 @@ constructor.
 ::
 
 	class Foo {
-		protected property $foo;
+		protected property foo;
 
 		public method ctor() {
 		}
 	}
 
-	$a = Foo();
+	a = Foo();
 
 ::
 
 	class Foo {
-		public method ctor($arg) {
+		public method ctor(arg) {
 		}
 	}
 
-	$a = Foo();             // Not possible, must pass an argument, since we don't have a default value
-	$a = Foo("something");  // Automatically calls ctor("something")
+	a = Foo();             // Not possible, must pass an argument, since we don't have a default value
+	a = Foo("something");  // Automatically calls ctor("something")
 
 
 A constructor is the only method that will have a different default return value. Not the result of the last expression
@@ -328,14 +328,14 @@ is returned, but a reference to itself. This means that you can use a fluid inte
 
 ::
 
-    $a = Foo().test();
+    a = Foo().test();
 
-Note that in this case: the result of test() gets saves in $a and the actual Foo() object isn't saved at all.
+Note that in this case: the result of test() gets saves in ``a`` and the actual Foo() object isn't saved at all.
 
  ::
 
-     $a = Foo().bar();
-     $a = Foo().baz();
+     a = Foo().bar();
+     a = Foo().baz();
 
 This would actually instantiate the Foo() method twice.
 
@@ -353,15 +353,15 @@ during the cleanup.
 		public method dtor() { }
 	}
 
-	$a = Foo();   // Calls ctor()
-	$a = Null;    // calls dtor(), since there are no references
+	a = Foo();   // Calls ctor()
+	a = Null;    // calls dtor(), since there are no references
 
 ::
 
-	$a = Foo();   // Calls ctor()
-	$b = $a;      // $b is a reference to the object $a
-	$a = Null;    // Foo.dtor is not called, since there is still a reference
-	$b = Null;    // calls dtor(), since there are no references
+	a = Foo();   // Calls ctor()
+	b = a;      // b is a reference to the object a
+	a = Null;    // Foo.dtor is not called, since there is still a reference
+	b = Null;    // calls dtor(), since there are no references
 
 .. hint::
 	Saffire implements through its base object class the refcount() method that returns the number of reference the
@@ -376,26 +376,26 @@ A fluent interface means that (almost) every method will return the actual metho
 ::
 
     class Foo {
-        protected property $_bar;
-        protected property $_baz;
+        protected property _bar;
+        protected property _baz;
 
-        public method ctor($arg) {
-            self.$_bar = 0;
-            self.$_baz = 0;
+        public method ctor(arg) {
+            self._bar = 0;
+            self._baz = 0;
         }
 
         public method bar() {
-            self.$_bar++;
+            self._bar++;
             return self;
         }
 
         public method baz() {
-            self.$_baz++;
+            self._baz++;
             return self;
         }
     }
 
-    $a = Foo().baz().baz().bar(); // Will return a foo() object with _baz = 2, and _bar = 1;
+    a = Foo().baz().baz().bar(); // Will return a foo() object with _baz = 2, and _bar = 1;
 
 
 Final
@@ -438,8 +438,8 @@ Abstract classes are classes that by itself cannot be instantiated, but can be e
 	class Bar extends Foo {
 	}
 
-	$a = Foo();   // Cannot instantiate an abstract class
-	$b = Bar();   // Works correctly.
+	a = Foo();   // Cannot instantiate an abstract class
+	b = Bar();   // Works correctly.
 
 Abstract classes can hold abstract methods. These methods only have a method definition, but no body. It's up to the
 class that extends this class to implement the body.
@@ -447,11 +447,11 @@ class that extends this class to implement the body.
 ::
 
 	Abstract class Foo {
-		abstract public method Bar(String $a, Numerical $b);
+		abstract public method Bar(String a, Numerical b);
 	}
 
 	class Bar {
-		public method Bar(String $a, Numerical $b) {
+		public method Bar(String a, Numerical b) {
 			// Body of the method
 		}
 	}
@@ -473,10 +473,10 @@ A public property or method can be called directly from any other class.
 ::
 
 	class Foo {
-		public property $bar = "baz";
+		public property bar = "baz";
 	}
 
-	$a = Foo.bar;
+	a = Foo.bar;
 
 
 Protected visibility
@@ -486,7 +486,7 @@ A protected property or method can only be called from its own class *or* any cl
 ::
 
 	class Foo {
-		protected property $bar = "baz";
+		protected property bar = "baz";
 
 		public method test() {
 			self.bar = "qux";	// This is allowed
@@ -499,7 +499,7 @@ A protected property or method can only be called from its own class *or* any cl
 		}
 	}
 
-	$a = Foo.bar;  // This is not allowed
+	a = Foo.bar;  // This is not allowed
 
 
 Private visibility
@@ -509,7 +509,7 @@ A private property or method can *only* be called from its own class. Any classe
 ::
 
 	class Foo {
-		private property $bar = "baz";
+		private property bar = "baz";
 
 		public method test() {
 			self.bar = "qux";	// This is allowed
@@ -522,7 +522,7 @@ A private property or method can *only* be called from its own class. Any classe
 		}
 	}
 
-	$a = Foo.bar;  // This is not allowed
+	a = Foo.bar;  // This is not allowed
 
 
 Static methods
@@ -550,22 +550,22 @@ available inside static methods. To reference a static method or property, use t
 ::
 
     class Foo {
-        static protected property $a = 1;
-        protected property $b = 2;
+        static protected property a = 1;
+        protected property b = 2;
 
         static public method Bar() {
-            static.$a = 5;        // Allowed
+            static.a = 5;        // Allowed
             static.Baz();         // Allowed
         }
 
         static public method Baz() {
             static.Quk();         // Not allowed. Calling a non-static method
-            return static.$a;     // Return static property
+            return static.a;      // Return static property
         }
 
         public method Quk() {
             self.Bar();         // We CAN reference static methods like this
-            return self.$a;     // Static property, but allowed.
+            return self.a;     // Static property, but allowed.
         }
     }
 

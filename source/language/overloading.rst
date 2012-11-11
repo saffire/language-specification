@@ -6,7 +6,7 @@ Overloading
 Operator overloading
 ====================
 
-It's possible in Saffire to overload operators. This means that whenever an operator (+, -, /, *, [], <<, >>) is used in
+It's possible in Saffire to overload operators. This means that whenever an operator (+, -, /, \*, [], <<, >>) is used in
 combination with a class, it will automatically call the correct operator overloading method. Operator overloading
 methods are different from regular methods, since they are in the format
 
@@ -18,13 +18,13 @@ For instance:
 ::
 
 	class Foo {
-		public method ::+(String $s) {
+		public method ::+(String s) {
 		}
 	}
 
-	$a = Foo();
-	$b = $a + "test";	// This will call the ::+ method, since we are adding a string
-	$b = $a + 1;		// This result in an error, since there is no + overloading for a Numerical
+	a = Foo();
+	b = a + "test";	// This will call the ::+ method, since we are adding a string
+	b = a + 1;		// This result in an error, since there is no + overloading for a Numerical
 
 
 Operator overloading *can* make it easier to work with objects. Just like you can add numerical values like 1 + 3, it
@@ -35,13 +35,13 @@ and add a Color("blue"), we end up with a Color("green"), since the colors have 
 
 ::
 	
-	$c = Color("yellow") + Color("blue");   // $c = Color("green")
+	c = Color("yellow") + Color("blue");   // c = Color("green")
 
 Without operator overloading, you would have to specify another method for this:
 
 ::
 
-	$c = Color("yellow")->mix(Color("blue"));	// Does the same as the example above, but less readable.
+	c = Color("yellow")->mix(Color("blue"));	// Does the same as the example above, but less readable.
 
 
 .. warning::
@@ -58,10 +58,10 @@ Method overloading allows us to have the same method names, but with different a
 ::
 
 	class Foo {
-		method Bar(String $arg) { }
-		method Bar(Numeric $arg) { }
-		method Bar(String $arg1, String $arg2) { }
-		method Bar(String $arg1, $arg2) { }
+		method Bar(String arg) { }
+		method Bar(Numeric arg) { }
+		method Bar(String arg1, String arg2) { }
+		method Bar(String arg1, arg2) { }
 	}
 
 Depending on which arguments you pass, it will call the correct "Bar" method.
@@ -86,8 +86,8 @@ priority than base classes:
 	}
 
 	class Foo {
-		method Bar(baseclass $foo) {}
-		method Bar(higherclass $foo) {}
+		method Bar(baseclass foo) {}
+		method Bar(higherclass foo) {}
 	}
 
 	Foo.Bar(higherclass());  // Class method 2
@@ -105,8 +105,8 @@ But sometimes two different candidates are possible, with the same base path's:
 ::
 
     class Foo {
-        method Bar(String $arg1, $arg2);
-        method Bar($arg1, String $arg2);
+        method Bar(String arg1, arg2);
+        method Bar(arg1, String arg2);
     }
 
 Calling `Foo.Bar("foo", 1);` is an easy call, method 1 will be called, since that is the only candidate available to
@@ -133,8 +133,8 @@ However, sometimes complex hierarchies can appear with mixed extends and interfa
     class Bar extends Foo implements A;
 
     class Qux {
-        public method test(A $arg1, B $arg2) { ... }
-        public method test(B $arg1, A $arg2) { ... }
+        public method test(A arg1, B arg2) { ... }
+        public method test(B arg1, A arg2) { ... }
     }
 
     Qux.test(Foo(), Bar());
@@ -158,8 +158,8 @@ the same base paths.
 ::
 
 	class Foo {
-		method Bar(String $a, $b);
-		method Bar($a, String $b);
+		method Bar(String a, b);
+		method Bar(a, String b);
 	}
 
 	Foo.Bar("a", "b");	// method 1 wins, arg 1 from method 1 (string) is stricter than arg 1 from method 2 (object).
