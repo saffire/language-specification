@@ -371,7 +371,7 @@ during the cleanup.
 
 Fluent interface
 ================
-A fluent interface means that (almost) every method will return the actual method once the method has been completed.
+A fluent interface means that (almost) every method will return the actual object once the method has been completed.
 
 ::
 
