@@ -46,29 +46,41 @@ These opcodes do not take any additional operands.
 Opcode     Value                    Description
 ======     ====================     ==========================================
 00h        STOP                     Will end the VM execution.
+
 01h        POP_TOP                  Removes (pops) SP-0
 02h        ROT_TWO                  Rotates (or swaps) SP-0 with SP-1.
 03h        ROT_THREE                Rotates the last three items on the stack, SP-0 becoming SP-2.
 04h        DUP_TOP                  Duplicates SP-0 and pushes it onto the stack SP-0 and SP-1 wil be equal.
 05h        ROT_FOUR                 Rotates the last four items on the stack SP-0 becoming SP-3.
+
 09h        NOP                      No operation.
+
+17h        BINARY_ADD               Pops SP-0 and SP-1 values from stack and pushes (SP-0 + SP-1)
+18h        BINARY_SUB               Pops SP-0 and SP-1 values from stack and pushes (SP-0 - SP-1)
+19h        BINARY_MUL               Pops SP-0 and SP-1 values from stack and pushes (SP-0 * SP-1)
+1Ah        BINARY_DIV               Pops SP-0 and SP-1 values from stack and pushes (SP-0 / SP-1)
+1Bh        BINARY_SHL               Pops SP-0 and SP-1 values from stack and pushes (SP-0 << SP-1)
+1Ch        BINARY_SHR               Pops SP-0 and SP-1 values from stack and pushes (SP-0 >> SP-1)
+1Dh        BINARY_AND               Pops SP-0 and SP-1 values from stack and pushes (SP-0 & SP-1)
+1Eh        BINARY_OR                Pops SP-0 and SP-1 values from stack and pushes (SP-0 | SP-1)
+1Fh        BINARY_XOR               Pops SP-0 and SP-1 values from stack and pushes (SP-0 ^ SP-1)
+
+20h        INPLACE_ADD              Pops SP-0 and SP-1 values from stack and pushes (SP-0 + SP-1)
+21h        INPLACE_SUB              Pops SP-0 and SP-1 values from stack and pushes (SP-0 - SP-1)
+22h        INPLACE_MUL              Pops SP-0 and SP-1 values from stack and pushes (SP-0 * SP-1)
+23h        INPLACE_DIV              Pops SP-0 and SP-1 values from stack and pushes (SP-0 / SP-1)
+24h        INPLACE_SHL              Pops SP-0 and SP-1 values from stack and pushes (SP-0 << SP-1)
+25h        INPLACE_SHR              Pops SP-0 and SP-1 values from stack and pushes (SP-0 >> SP-1)
+26h        INPLACE_AND              Pops SP-0 and SP-1 values from stack and pushes (SP-0 & SP-1)
+27h        INPLACE_OR               Pops SP-0 and SP-1 values from stack and pushes (SP-0 | SP-1)
+28h        INPLACE_XOR              Pops SP-0 and SP-1 values from stack and pushes (SP-0 ^ SP-1)
+
 0Ah        UNARY_POSITIVE
 0Bh        UNARY_NEGATIVE
 0Ch        UNARY_NOT
 0Dh        UNARY_CONVERT
 0Fh        UNARY_INVERT
 12h        LIST_APPEND
-13h        BINARY_POWER
-14h        BINARY_MULTIPLY
-15h        BINARY_DIVIDE
-16h        BINARY_MODULO
-17h        BINARY_ADD
-18h        BINARY_SUBTRACT
-19h        BINARY_SUBSCR
-1Ah        BINARY_FLOOR_DIVIDE
-1Bh        BINARY_TRUE_DIVIDE
-1Ch        INPLACE_FLOOR_DIVIDE
-1Dh        INPLACE_TRUE_DIVIDE
 1Eh        SLICE
 1Fh        SLICE+1
 20h        SLICE+2
@@ -81,25 +93,9 @@ Opcode     Value                    Description
 33h        DELETE_SLICE+1
 34h        DELETE_SLICE+2
 35h        DELETE_SLICE+3
-37h        INPLACE_ADD
-38h        INPLACE_SUBTRACT
-39h        INPLACE_MULTIPLY
-3Ah        INPLACE_DIVIDE
-3Bh        INPLACE_MODULO
 3Ch        STORE_SUBSCR
 3Dh        DELETE_SUBSCR
-3Eh        BINARY_LSHIFT
-3Fh        BINARY_RSHIFT
-40h        BINARY_AND
-41h        BINARY_XOR
-42h        BINARY_OR
-43h        INPLACE_POWER
 44h        GET_ITER
-4Bh        INPLACE_LSHIFT
-4Ch        INPLACE_RSHIFT
-4Dh        INPLACE_AND
-4Eh        INPLACE_XOR
-4Fh        INPLACE_OR
 50h        BREAK_LOOP
 51h        WITH_CLEANUP
 52h        LOAD_LOCALS
@@ -110,8 +106,13 @@ Opcode     Value                    Description
 57h        POP_BLOCK
 58h        END_FINALLY
 59h        BUILD_CLASS
+
+7Eh        USE
+7Fh        IMPORT                   Imports class SP-0 from SP-1 and pushes it into the stack
 ======     ====================     ==========================================
 
+.. attention::
+    "Inplace" functionality is not implemented. There is no difference between INPLACE_ADD and BINARY_ADD.
 
 
 ----------------------
@@ -125,18 +126,27 @@ section.
 ======     ====================     ==========================================
 Opcode     Value                    Description
 ======     ====================     ==========================================
-80h        STORE_NAME               Stores SP-0 into a variable. The name of the var is found in names[OP+0]. Can be
-                                    stored as a global or local.
-81h        DELETE_NAME              Clears global or local vars[OP+0].
+80h        STORE_ID                 Stores SP-0 into a variable. The name of the var is found in names[OP+0]. Can be
+81h        LOAD_CONST               Create const[OP+0] object and push onto the stack.
+82h        LOAD_ID                  Loads identifier(vars[OP+0]) and push onto the stack. Identifier can be local, global or builtin.
+
+83h        JUMP_FORWARD             The IP will be increased with OP+0.
+84h        JUMP_IF_FALSE            if SP-0 cast to boolean returns false, it will increase IP with OP+0.
+85h        JUMP_IF_TRUE             if SP-0 cast to boolean returns true, it will increase IP with OP+0.
+86h        JUMP_ABSOLUTE            IP will be set to OP+0.
+
+87h        DUP_TOPX                 Duplicate SP-0 OP+0 times onto the stack. DUP_TOP is equal to DUP_TOPX[1].
+
+88h        LOAD_GLOBAL              Loads global identifier(vars[OP+0]) and pushes onto the stack.
+89h        STORE_GLOBAL             Stores SP-0 into a global identifier(vars[OP+0])
+8Ah        DELETE_GLOBAL            Clears global identifier(vars[OP+0])
+
+
+81h        DELETE_NAME
 82h        UNPACK_SEQUENCE
 82h        FOR_ITER
 5Fh        STORE_ATTR
 60h        DELETE_ATTR
-61h        STORE_GLOBAL             Stores SP-0 into a global variable. Name is found in vars[OP+0]
-62h        DELETE_GLOBAL            Clears global vars[OP+0]
-63h        DUP_TOPX                 Duplicate SP-0 OP+0 times onto the stack. DUP_TOP is equal to DUP_TOPX[1].
-64h        LOAD_CONST               Create const[OP+0] object and push onto the stack.
-65h        LOAD_NAME                Loads vars[OP+0] and push onto the stack.
 ??h        BUILD_DATASTRUCTURE      Creates a datastructure with OP+0 elements. SP-0 points to the name of the
                                     datastructure, while SP-N are the element tuples. Pushes back a datastructure object.
 66h        BUILD_TUPLE
@@ -150,11 +160,6 @@ Opcode     Value                    Description
 6Ah        COMPARE_OP
 6Bh        IMPORT_NAME
 6Ch        IMPORT_FROM
-6Eh        JUMP_FORWARD             The IP will be increased with OP+0.
-6Fh        JUMP_IF_FALSE            if SP-0 cast to boolean returns false, it will increase IP with OP+0.
-70h        JUMP_IF_TRUE             if SP-0 cast to boolean returns true, it will increase IP with OP+0.
-71h        JUMP_ABSOLUTE            IP will be set to OP+0.
-74h        LOAD_GLOBAL
 77h        CONTINUE_LOOP
 78h        SETUP_LOOP
 79h        SETUP_EXCEPT
@@ -163,7 +168,7 @@ Opcode     Value                    Description
 7Dh        STORE_FAST
 7Eh        DELETE_FAST
 82h        RAISE_VARARGS
-83h        CALL_FUNCTION
+83h        CALL_FUNCTION            Calls method OP+0 SP+0 from object SP+1 with OP+1 args starting from SP+2.
 84h        MAKE_FUNCTION
 85h        BUILD_SLICE
 86h        MAKE_CLOSURE
