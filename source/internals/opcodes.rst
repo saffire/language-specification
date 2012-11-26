@@ -109,8 +109,8 @@ Opcode     Value                    Description
 71h        MAKE_METHOD              Pops SP-0 as a code object and pushes back a method object at the stack.
 72h        POP_BLOCK                Pops a block from the frameblock stack.
 73h        RETURN                   Returns to the caller frame (or exists when we are at the last frame). SP-0 should
-                                    hold an object that is returned. Last frame will need a castable to numerical (or
-                                    numerical) object that will be the exitcode of the saffire script run.
+                                    hold an object that is returned. Last frame will need a castable to numerical (or numerical) object that will be the exitcode of the saffire script run.
+
 74h        BREAK_LOOP               Breaks from the last loop-block found on the framestack and continues after the loop.
 75h        BREAKELSE_LOOP           Breaks from the last loop-block found on the framestack and continues with the
                                     loop "else" statement.
