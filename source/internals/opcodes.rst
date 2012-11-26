@@ -15,8 +15,8 @@ IP
     The instruction pointer. It is always between 0 and the size of the current codeblock and points to the next
     opcode that is currently being executed.
 SP
-    Stackpointer. Points to the last stored value on the stack. Since stacks grow downwards, SP-0 points to the current
-    value, SP-1 points to the previous stored value etc. A stack pointer is always between the current codeblock
+    Stackpointer. Points to the last stored value on the value-stack. Since stacks grow downwards, SP-0 points to the
+    current value, SP-1 points to the previous stored value etc. A stack pointer is always between the current codeblock
     stack-size and 0.
 Push
     Adds an object onto the stack (thus **decreasing** the stack pointer). Adding objects onto a full stack will result
@@ -80,7 +80,7 @@ Opcode     Value                    Description
 0Ch        UNARY_NOT
 0Dh        UNARY_CONVERT
 0Fh        UNARY_INVERT
-12h        LIST_APPEND
+
 1Eh        SLICE
 1Fh        SLICE+1
 20h        SLICE+2
@@ -93,26 +93,34 @@ Opcode     Value                    Description
 33h        DELETE_SLICE+1
 34h        DELETE_SLICE+2
 35h        DELETE_SLICE+3
+
 3Ch        STORE_SUBSCR
 3Dh        DELETE_SUBSCR
-44h        GET_ITER
-50h        BREAK_LOOP
-51h        WITH_CLEANUP
-52h        LOAD_LOCALS
-53h        RETURN_VALUE
-54h        IMPORT_STAR
-55h        EXEC_STMT
-56h        YIELD_VALUE
-57h        POP_BLOCK
-58h        END_FINALLY
-59h        BUILD_CLASS
 
+44h        GET_ITER
+50h        BREAK_LOOP               Terminates a loop and continues with the instruction after the loop.
+50h        BREAKELSE_LOOP           Terminates a loop and continues with the else-part of the compound statement.
+52h        LOAD_LOCALS
+53h        RETURN_VALUE             Returns to the function call entrypoint. SP-0 holds the return value.
+57h        POP_BLOCK                Removes a block from the frame-stack.
+58h        END_FINALLY              Terminates a finally block.
+59h        BUILD_CLASS              SP-0 is the name, SP-1 is a hash with key: method names  values : method objects
+
+71h        MAKE_METHOD              Pops SP-0 as a code object and pushes back a method object at the stack.
+72h        POP_BLOCK                Pops a block from the frameblock stack.
+73h        RETURN                   Returns to the caller frame (or exists when we are at the last frame). SP-0 should
+                                    hold an object that is returned. Last frame will need a castable to numerical (or
+                                    numerical) object that will be the exitcode of the saffire script run.
+74h        BREAK_LOOP               Breaks from the last loop-block found on the framestack and continues after the loop.
+75h        BREAKELSE_LOOP           Breaks from the last loop-block found on the framestack and continues with the
+                                    loop "else" statement.
 7Eh        USE
 7Fh        IMPORT                   Imports class SP-0 from SP-1 and pushes it into the stack
 ======     ====================     ==========================================
 
 .. attention::
     "Inplace" functionality is not implemented. There is no difference between INPLACE_ADD and BINARY_ADD.
+
 
 
 ----------------------
@@ -128,7 +136,8 @@ Opcode     Value                    Description
 ======     ====================     ==========================================
 80h        STORE_ID                 Stores SP-0 into a variable. The name of the var is found in names[OP+0]. Can be
 81h        LOAD_CONST               Create const[OP+0] object and push onto the stack.
-82h        LOAD_ID                  Loads identifier(vars[OP+0]) and push onto the stack. Identifier can be local, global or builtin.
+82h        LOAD_ID                  Loads identifier(vars[OP+0]) and push onto the stack. Identifier can be local,
+                                    global or builtin.
 
 83h        JUMP_FORWARD             The IP will be increased with OP+0.
 84h        JUMP_IF_FALSE            if SP-0 cast to boolean returns false, it will increase IP with OP+0.
@@ -141,44 +150,40 @@ Opcode     Value                    Description
 89h        STORE_GLOBAL             Stores SP-0 into a global identifier(vars[OP+0])
 8Ah        DELETE_GLOBAL            Clears global identifier(vars[OP+0])
 
+90h        SETUP_LOOP               Creates a loop. OP+0 will hold the length of the loop ie: the next relatieve opcode
+                                    after the loop.
+92h        CONTINUE_LOOP            Continues the loop by jumping to absolute opcode OP+0.
+93h        BUILD_CLASS              Creates a new class object. SP-0 holds the class name. SP-1 holds class flags. After
+                                    this, there are OP+0 pairs of name (SP-3) and method objects (SP-4).
+95h        COMPARE_OP               Call a comparison method. OP+0 is the comparison type. (0 = EQ, 1 = NE etc)
+96h        SETUP_FINALLY            Pushes a frame onto the frame-stack. ip + OP+0 points to the FIRST fi9nally
+                                    statement.
+97h        SETUP_EXCEPT             Pushes a frame onto the frame-stack. ip + OP+0 points to the FIRST exception
+                                    statement.
+98h        END_FINALLY
 
 81h        DELETE_NAME
+
 82h        UNPACK_SEQUENCE
+
 82h        FOR_ITER
 5Fh        STORE_ATTR
 60h        DELETE_ATTR
-??h        BUILD_DATASTRUCTURE      Creates a datastructure with OP+0 elements. SP-0 points to the name of the
-                                    datastructure, while SP-N are the element tuples. Pushes back a datastructure object.
-66h        BUILD_TUPLE
-67h        BUILD_LIST               Same as BUILD_DATASTRUCTURE, except there is no name of the datastructure pushed
-                                    onto the stack. Implies "list" and SP-0 points to the first element to be added.
-67h        BUILD_HASH               Same as BUILD_DATASTRUCTURE, except there is no name of the datastructure pushed
-                                    onto the stack. Implies "hash" and SP-0 points to the first element to be added.
-67h        BUILD_SET                Same as BUILD_DATASTRUCTURE, except there is no name of the datastructure pushed
-                                    onto the stack. Implies "set" and SP-0 points to the first element to be added.
 69h        LOAD_ATTR
-6Ah        COMPARE_OP
-6Bh        IMPORT_NAME
-6Ch        IMPORT_FROM
-77h        CONTINUE_LOOP
-78h        SETUP_LOOP
-79h        SETUP_EXCEPT
-7Ah        SETUP_FINALLY
-7Ch        LOAD_FAST
-7Dh        STORE_FAST
-7Eh        DELETE_FAST
-82h        RAISE_VARARGS
-83h        CALL_FUNCTION            Calls method OP+0 SP+0 from object SP+1 with OP+1 args starting from SP+2.
-84h        MAKE_FUNCTION
+
+A0h        BUILD_DATASTRUCTURE      Creates a datastructure with OP+0 elements. SP-0 points to the name of the
+                                    datastructure, while SP-N are the element tuples. Pushes back a datastructure
+                                    object.
+A1h        BUILD_TUPLE              Same as BUILD_DATASTRUCTURE, except there is no name of the datastructure pushed
+                                    onto the stack. Implies "list" and SP-0 points to the first element to be added.
+A2h        BUILD_LIST               Same as BUILD_DATASTRUCTURE, except there is no name of the datastructure pushed
+                                    onto the stack. Implies "list" and SP-0 points to the first element to be added.
+A3h        BUILD_HASH               Same as BUILD_DATASTRUCTURE, except there is no name of the datastructure pushed
+                                    onto the stack. Implies "hash" and SP-0 points to the first element to be added.
+A4h        BUILD_SET                Same as BUILD_DATASTRUCTURE, except there is no name of the datastructure pushed
+                                    onto the stack. Implies "set" and SP-0 points to the first element to be added.
+
 85h        BUILD_SLICE
-86h        MAKE_CLOSURE
-87h        LOAD_CLOSURE
-88h        LOAD_DEREF
-89h        STORE_DEREF
-8Ch        CALL_FUNCTION_VAR
-8Dh        CALL_FUNCTION_KW
-8Eh        CALL_FUNCTION_VAR_KW
-8Fh        EXTENDED_ARG
 ======     ====================     ==========================================
 
 
@@ -193,10 +198,16 @@ to 1. In effect this means that operands starting from **C0h** to **DFh** are re
 reserved for 3 operand opcodes. **F0h** to **FEh** are reserved for opcodes with 4 operands. Opcode **FFh** has
 special meaning and is discussed in the `Reserved opcodes`_ section.
 
+======     ====================     ==========================================
+Opcode     Value                    Description
+======     ====================     ==========================================
+C0h        CALL_METHOD              Calls method OP+0 SP+0 from object SP+1 with OP+1 args starting from SP+2.
+C1h        CALL_METHOD_VARAGS
+======     ====================     ==========================================
+
 ==========      ==============================================================
 Opcodes         Description
 ==========      ==============================================================
-C0h to DFh      2 operand codes (reserved for future use)
 E0h to EFh      3 operand codes (reserved for future use)
 F0h to FEh      4 operand codes (reserved for future use)
 ==========      ==============================================================
@@ -216,7 +227,6 @@ FFh        <reserved>               Reserved for future use. Can be used as a ma
 
 
 
-
 --------------
 Future opcodes
 --------------
@@ -227,7 +237,7 @@ end" opcodes. In order to keep the bytecode small, we will keep using only 1 byt
 extensions.
 
 Later, when 1-byte opcodes has proven not to be enough, we can use FFh as a marker that another opcode byte will follow.
-For instance, the opcodes **FFh 00h** can indicate a future opcode. If even 2 bytes aren't enough, the **FFh** marker can
-be used for even larger sets. **FFh FFh FFh 00h** can be distinguished as a unique opcode in a opcode-set of almost
+For instance, the opcodes **FFh 00h** can indicate a future opcode. If even 2 bytes aren't enough, the **FFh** marker
+can be used for even larger sets. **FFh FFh FFh 00h** can be distinguished as a unique opcode in a opcode-set of almost
 **4 million** different opcodes. I think in this case it is safe to say: 4 million different opcodes should be enough
 for everybody.
