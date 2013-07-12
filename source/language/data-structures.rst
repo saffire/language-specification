@@ -89,14 +89,16 @@ Sets can be used to quickly add, subtract or check items.
 
 Tuples
 ------
-Tuples work a bit differently than the other data structures. A tuple is an internal structure that holds zero or more
-other elements.
+Tuples work a bit differently than the other data structures. A tuple isn't a data structure like others inside Saffire,
+but it's an immutable structure that can hold one or more other elements. Once a tuple has been created, you cannot add
+or remove any elements to it.
 
 ::
 
 	a = ( "foo", "bar" );
 
-Tuples are read-only lists. They can be used to group values.
+In this example, 'a' would be a tuple with two elements: the string "foo" and the string "bar". A tuple is defined by
+using parenthesis and a comma-separated list of items.
 
 ::
 
@@ -105,6 +107,77 @@ Tuples are read-only lists. They can be used to group values.
 	// a = "foo"
 	// b = ("bar", "baz")
 	// c = "qux";
+
+
+Single element tuples
+~~~~~~~~~~~~~~~~~~~~~
+
+Defining a tuple with only one element is a bit tricky. This is because syntax-wise this is the same as a grouped
+expression. There is no way for saffire to figure out what you want to achieve with the following code:
+
+::
+
+	a = (2 * (3 + 4));
+
+
+Do you want a to be a tuple, or is it just a expression that you have grouped in order to get the precedence right?
+In order to make tuples with a single value, you MUST add a trailing comma at the end of the list. The following would
+create a tuple with one element:
+
+::
+
+    a = (2,);    // tuple with the numerical value 2
+    b = (2);     // just a numerical value 2
+
+There is no way to create empty tuples, as this is considered pointless.
+
+Using tuples
+~~~~~~~~~~~~
+
+Using tuples is fairly easy:
+
+::
+
+    a = (1, 2);     // a is a tuple
+
+But you can also assign something to a tuple:
+
+::
+
+    (a,b) = (1, 2);
+
+Here we assigned the tuple (1,2) to the tuple (a,b). In effect assigning the value 1 to a, and the value 2 to b. It's
+even possible to quickly swap variables without a third variable:
+
+::
+
+    (a,b) = (b,a);
+
+When assigning tuples, you don't need to have the same amount of elements. For instance, the following will work:
+
+::
+
+    (a, b) = (1, 2, 3, 4);
+
+In this case, 'a' becomes 1, 'b' becomes 2, but the values 3 and 4 are never assigned. Note however, they will be
+evaluated:
+
+::
+
+    (a, b) = (f.foo(), f.bar(), f.baz(), f.qux());
+
+Here, the methods foo(), bar(), baz() and qux() are called, but only the result from foo() and bar() are stored inside
+respectively a and b.
+
+The other way around is possible too, you can have more elements on the left-hand side than on the right hand side:
+
+::
+
+    (a,b,c,d) = (1,2);
+
+Here, a becomes 1, b becomes 2, but both c and d are filled with a "null" object. When elements counts do not match up,
+Saffire will pad them with "null" to even out the elements.
+
 
 
 
