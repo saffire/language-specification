@@ -45,81 +45,26 @@ These opcodes do not take any additional operands.
 ======     ====================     ==========================================
 Opcode     Value                    Description
 ======     ====================     ==========================================
-00h        STOP                     Will end the VM execution.
+0x00       STOP                     Will end the VM execution.
 
-01h        POP_TOP                  Removes (pops) SP-0
-02h        ROT_TWO                  Rotates (or swaps) SP-0 with SP-1.
-03h        ROT_THREE                Rotates the last three items on the stack, SP-0 becoming SP-2.
-04h        DUP_TOP                  Duplicates SP-0 and pushes it onto the stack SP-0 and SP-1 wil be equal.
-05h        ROT_FOUR                 Rotates the last four items on the stack SP-0 becoming SP-3.
+0x01       POP_TOP                  Removes (pops) SP-0
+0x02       ROT_TWO                  Rotates (or swaps) SP-0 with SP-1.
+0x03       ROT_THREE                Rotates the last three items on the stack, SP-0 becoming SP-2.
+0x04       DUP_TOP                  Duplicates SP-0 and pushes it onto the stack SP-0 and SP-1 wil be equal.
+0x05       ROT_FOUR                 Rotates the last four items on the stack SP-0 becoming SP-3.
 
-09h        NOP                      No operation.
+0x09       NOP                      No operation.
 
-17h        BINARY_ADD               Pops SP-0 and SP-1 values from stack and pushes (SP-0 + SP-1)
-18h        BINARY_SUB               Pops SP-0 and SP-1 values from stack and pushes (SP-0 - SP-1)
-19h        BINARY_MUL               Pops SP-0 and SP-1 values from stack and pushes (SP-0 * SP-1)
-1Ah        BINARY_DIV               Pops SP-0 and SP-1 values from stack and pushes (SP-0 / SP-1)
-1Bh        BINARY_SHL               Pops SP-0 and SP-1 values from stack and pushes (SP-0 << SP-1)
-1Ch        BINARY_SHR               Pops SP-0 and SP-1 values from stack and pushes (SP-0 >> SP-1)
-1Dh        BINARY_AND               Pops SP-0 and SP-1 values from stack and pushes (SP-0 & SP-1)
-1Eh        BINARY_OR                Pops SP-0 and SP-1 values from stack and pushes (SP-0 | SP-1)
-1Fh        BINARY_XOR               Pops SP-0 and SP-1 values from stack and pushes (SP-0 ^ SP-1)
-
-20h        INPLACE_ADD              Pops SP-0 and SP-1 values from stack and pushes (SP-0 + SP-1)
-21h        INPLACE_SUB              Pops SP-0 and SP-1 values from stack and pushes (SP-0 - SP-1)
-22h        INPLACE_MUL              Pops SP-0 and SP-1 values from stack and pushes (SP-0 * SP-1)
-23h        INPLACE_DIV              Pops SP-0 and SP-1 values from stack and pushes (SP-0 / SP-1)
-24h        INPLACE_SHL              Pops SP-0 and SP-1 values from stack and pushes (SP-0 << SP-1)
-25h        INPLACE_SHR              Pops SP-0 and SP-1 values from stack and pushes (SP-0 >> SP-1)
-26h        INPLACE_AND              Pops SP-0 and SP-1 values from stack and pushes (SP-0 & SP-1)
-27h        INPLACE_OR               Pops SP-0 and SP-1 values from stack and pushes (SP-0 | SP-1)
-28h        INPLACE_XOR              Pops SP-0 and SP-1 values from stack and pushes (SP-0 ^ SP-1)
-
-0Ah        UNARY_POSITIVE
-0Bh        UNARY_NEGATIVE
-0Ch        UNARY_NOT
-0Dh        UNARY_CONVERT
-0Fh        UNARY_INVERT
-
-1Eh        SLICE
-1Fh        SLICE+1
-20h        SLICE+2
-21h        SLICE+3
-28h        STORE_SLICE
-29h        STORE_SLICE+1
-2Ah        STORE_SLICE+2
-2Bh        STORE_SLICE+3
-32h        DELETE_SLICE
-33h        DELETE_SLICE+1
-34h        DELETE_SLICE+2
-35h        DELETE_SLICE+3
-
-3Ch        STORE_SUBSCR
-3Dh        DELETE_SUBSCR
-
-44h        GET_ITER
-50h        BREAK_LOOP               Terminates a loop and continues with the instruction after the loop.
-50h        BREAKELSE_LOOP           Terminates a loop and continues with the else-part of the compound statement.
-52h        LOAD_LOCALS
-53h        RETURN_VALUE             Returns to the function call entrypoint. SP-0 holds the return value.
-57h        POP_BLOCK                Removes a block from the frame-stack.
-58h        END_FINALLY              Terminates a finally block.
-59h        BUILD_CLASS              SP-0 is the name, SP-1 is a hash with key: method names  values : method objects
-
-71h        MAKE_METHOD              Pops SP-0 as a code object and pushes back a method object at the stack.
-72h        POP_BLOCK                Pops a block from the frameblock stack.
-73h        RETURN                   Returns to the caller frame (or exists when we are at the last frame). SP-0 should
+0x72       POP_BLOCK                Removes a block from the frame-stack.
+0x73       RETURN                   Returns to the caller frame (or exists when we are at the last frame). SP-0 should
                                     hold an object that is returned. Last frame will need a castable to numerical (or numerical) object that will be the exitcode of the saffire script run.
+0x74       BREAK_LOOP               Terminates a loop and continues with the instruction after the loop.
+0x75       BREAKELSE_LOOP           Terminates a loop and continues with the else-part of the compound statement.
 
-74h        BREAK_LOOP               Breaks from the last loop-block found on the framestack and continues after the loop.
-75h        BREAKELSE_LOOP           Breaks from the last loop-block found on the framestack and continues with the
-                                    loop "else" statement.
-7Eh        USE
-7Fh        IMPORT                   Imports class SP-0 from SP-1 and pushes it into the stack
+0x7A       END_FINALLY              Terminates a finally block.
+0x7E       USE
+0x7F       IMPORT                   Imports class SP-0 from SP-1 and pushes it into the stack
 ======     ====================     ==========================================
-
-.. attention::
-    "Inplace" functionality is not implemented. There is no difference between INPLACE_ADD and BINARY_ADD.
 
 
 
@@ -192,23 +137,31 @@ A4h        BUILD_SET                Same as BUILD_DATASTRUCTURE, except there is
 Opcodes with multiple operands
 ------------------------------
 
-For future reservations, opcodes with two or more operands are possible. They consist of having the highest bits set
-to 1. In effect this means that operands starting from **C0h** to **DFh** are reserved for opcodes with 2 operands
-(since these opcodes have the highest 2 bits set). Opcdoes **E0h** to **EFh** have the highest 3 bits set, so they are
-reserved for 3 operand opcodes. **F0h** to **FEh** are reserved for opcodes with 4 operands. Opcode **FFh** has
-special meaning and is discussed in the `Reserved opcodes`_ section.
+Opcodes with two or more operands are possible. They consist of having the highest bits set to 1. In effect this means
+that operands starting from **C0h** to **DFh** are reserved for opcodes with 2 operands (since these opcodes have the
+highest 2 bits set). Opcdoes **E0h** to **EFh** have the highest 3 bits set, so they are reserved for 3 operand opcodes.
+**F0h** to **FEh** are reserved for opcodes with 4 operands. Opcode **FFh** has special meaning and is discussed in
+the `Reserved opcodes`_ section.
 
 ======     ====================     ==========================================
 Opcode     Value                    Description
 ======     ====================     ==========================================
-C0h        CALL_METHOD              Calls method OP+0 SP+0 from object SP+1 with OP+1 args starting from SP+2.
-C1h        CALL_METHOD_VARAGS
+C1h        SETUP_ELSE_LOOP          OP+0 points to the end of the while-loop, while OP+1 points to the start of the
+                                    else loop.
+C2h        BUILD_ATTRIB             OP+0 defines the type of the attribute (constant, property or attribute), OP+1 is
+                                    the number of arguments (in case the attribute is a method)
 ======     ====================     ==========================================
+
+======     ====================     ==========================================
+Opcode     Value                    Description
+======     ====================     ==========================================
+0xE0       SETUP_EXCEPT             OP+0, OP+1 OP+2
+======     ====================     ==========================================
+
 
 ==========      ==============================================================
 Opcodes         Description
 ==========      ==============================================================
-E0h to EFh      3 operand codes (reserved for future use)
 F0h to FEh      4 operand codes (reserved for future use)
 ==========      ==============================================================
 
@@ -241,3 +194,54 @@ For instance, the opcodes **FFh 00h** can indicate a future opcode. If even 2 by
 can be used for even larger sets. **FFh FFh FFh 00h** can be distinguished as a unique opcode in a opcode-set of almost
 **4 million** different opcodes. I think in this case it is safe to say: 4 million different opcodes should be enough
 for everybody.
+
+
+
+
+
+; 1 operand per opcode
+STORE_ID             0x80
+LOAD_CONST           0x81
+LOAD_ID              0x82
+
+JUMP_FORWARD         0x83
+JUMP_IF_TRUE         0x84
+JUMP_IF_FALSE        0x85
+JUMP_ABSOLUTE        0x86
+
+DUP_TOPX             0x87
+
+LOAD_GLOBAL          0x88
+STORE_GLOBAL         0x89
+DELETE_GLOBAL        0x8A
+
+SETUP_LOOP           0x90
+
+CONTINUE_LOOP        0x92
+BUILD_CLASS          0x93
+BUILD_INTERFACE      0x94
+COMPARE_OP           0x95
+SETUP_FINALLY        0x96
+
+JUMP_IF_FIRST_FALSE  0xA0
+JUMP_IF_FIRST_TRUE   0xA1
+
+OPERATOR             0xA8
+INPLACE_OPR          0xA9
+
+BUILD_TUPLE          0xAE
+BUILD_DATASTRUCT     0xAF
+
+STORE_ATTRIB         0xBD
+LOAD_ATTRIB          0xBE
+CALL                 0xBF
+
+
+; 2 operands per opcode
+SETUP_ELSE_LOOP      0xC1
+BUILD_ATTRIB         0xC2
+
+; 3 operands per opcode
+SETUP_EXCEPT         0xE0
+
+RESERVED             0xFF
