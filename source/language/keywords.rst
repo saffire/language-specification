@@ -4,29 +4,50 @@ Keywords
 
 The following keywords are reserved and cannot be used as identifiers.
 
-* break
-* breakelse
-* class
-* extends
-* interface
-* abstract
-* final
-* implements
-* return
-* switch
-* goto
-* method
-* for
-* foreach
-* while
-* else
-* continue
-* const
-* use
-* as
-* if
-* import
-* from
+* ``while``
+* ``if``
+* ``else``
+* ``as``
+* ``import``
+* ``from``
+* ``do``
+* ``for``
+* ``foreach``
+* ``switch``
+
+* ``class``
+* ``extends``
+* ``implements``
+* ``inherits``
+* ``abstract``
+* ``final``
+* ``interface``
+* ``const``
+* ``static``
+
+* ``public``
+* ``private``
+* ``protected``
+* ``method``
+* ``property``
+
+* ``catch``
+* ``finally``
+* ``throw``
+* ``return``
+* ``break``
+* ``breakelse``
+* ``continue``
+* ``try``
+* ``default``
+* ``goto``
+* ``case``
+
+* ``self``
+* ``parent``
+
+* ``yield``
+
 
 
 

@@ -2,23 +2,25 @@
 Objects
 #######
 
-Everything in Saffire is an object. Even constant strings like "foo" are represented as `string`, which makes it possible to do:
+Everything in Saffire is an object. Even constant strings like ``"foo"`` are represented as a ``string``, which makes
+it possible to do:
 
 ::
 
 	"foo".length()   // returns 3
 
-Objects are all based from a special base class (object) that has some basic functionality for each class.
+Objects are all based from a special ``base`` class (object) that has some basic functionality for each class. If you
+create your own classes and do not extend this from another class, it will automatically use the ``base`` class.
 
 
-Classes vs Objects
-==================
-There is a subtle difference between objects and classes. A class is a "contract" which tells Saffire how objects should look like.
-There can be only one class for each name. Objects, are instantiated classes. They are mostly mapped to variables so you can
-actually use these classes.
+Classes vs Instances
+====================
+There is a subtle difference between instances and classes. A class is a "contract" which tells Saffire how objects
+should look like. There can be only one class for each name. Instances are instantiated classes. They are mostly mapped
+to variables so you can actually use these classes.
 
 
-Defining objects
+Defining classes
 ================
 
 ::
@@ -26,11 +28,12 @@ Defining objects
 	class Foo {
 	}
 
-Even though this class does not extends anything, it still extends our base calls object. This means it could have been written like:
+Even though this class does not extends anything, it still extends our base calls object. This means it could have
+been written like:
 
 ::
 
-	class Foo extends object {
+	class Foo extends base {
 	}
 
 For more info about extending classes, see `extending classes`_.
@@ -38,7 +41,8 @@ For more info about extending classes, see `extending classes`_.
 
 Instantiating
 =============
-The processes of creating objects from classes is called instantiating. To instantiate a class into an object use the following syntax:
+The processes of creating instances from classes is called instantiating. To instantiate a class into an object use the
+following syntax:
 
 ::
 
@@ -50,7 +54,7 @@ The processes of creating objects from classes is called instantiating. To insta
 This will create an object ``a``, which has been instantiated from class Foo();
 
 .. note::
-	It is not possible to instantiate the `object` class. This will result in an exception.
+	It is not possible to instantiate the `base` class. This will result in an exception.
 
 
 
@@ -66,6 +70,9 @@ A class can extend another class. Note that Saffire only support single inherita
 	class Bar extends Foo {
 	}
 
+.. note::
+	It's possible to extend core classes like ``String``, ``Numerical`` etc.
+
 
 Class body
 ==========
@@ -79,28 +86,29 @@ There are three things that can be defined inside a class body:
 
 Constants
 ---------
-Constants are like readonly properties. They are usually written in uppercase.
+Constants are like readonly properties. They are usually written in uppercase, even though it's not mandatory.
 
 ::
 	
 	class Foo {
-		const Foo = "BAR";
+		const PI = 3.14;
 	}
 
 
 Properties
 ----------
-Properties *must* implement a `Visibility`_. There is no assumed visibility.
+Properties **must** implement a `Visibility`_. There is no assumed visibility.
 
 ::
 
 	class Foo {
-		public property foo = "bar";
-		protected property foo = "bar";
-		private  property foo = "bar";
+		public property foo1 = "bar";
+		protected property foo2 = "bar";
+		private  property foo3 = "bar";
 	}
 
-Properties can either have a default assigned value, or none. In that case, it will automatically be filled with the Null object.
+Properties can either have a default assigned value, or none. In that case, it will automatically be filled with the
+Null object.
 
 
 ::
@@ -171,8 +179,9 @@ It's also possible to use type hinting to make sure the arguments are from a cer
 	Foo().Bar(1, Bar());          // Error: 1 is a Numerical, not a string.
 
 
-Variable argument lists
------------------------
+
+Variable argument lists (variadics)
+-----------------------------------
 It's possible to have a variable number of arguments when calling a function. A good example might be a printf() method,
 which needs at least one argument, but might have more.
 
@@ -183,7 +192,7 @@ which needs at least one argument, but might have more.
         }
     }
 
-The ellipsis (...) will tell Saffire that the argument (args, in this case) actually holds a list of additional
+The ellipsis (...) will tell Saffire that the argument (``args`` in this case) actually holds a list of additional
 arguments. They may or may not be typehinted as well, to ensure that all variable arguments are from the specified type.
 
 .. note::
@@ -198,7 +207,7 @@ Variable arguments can be used like the following example:
         public method Bar(String format, String ... args) {
             //
             if (args.length() == 2) {
-                io.print("There are 2 arguments!");
+                io.print("There are 2 string arguments!");
             }
 
             // Iterate additional arguments
@@ -206,26 +215,25 @@ Variable arguments can be used like the following example:
                 io.print("Argument: ", arg);
             }
 
-            io.print(format, arg.toargs());
+            io.print(format, ... arg);
         }
     }
 
 
-toargs()
-********
-The toargs() method found in list, will convert elements from a list into a full list. This method can ONLY be used
-when calling a method.
+using ...
+**********
+Using ellipsis in front of an argument inside a method call, will automatically expand the list into arguments.
 
 ::
 
     // List of 3 strings
     args = list["foo", "bar", "baz"];
 
-    // This will not work, since args is a LIST
+    // This will not work, since args is a LIST and there are no second or third argument.
     io.print("The arguments are: %s, %s and %s\n", args);
 
     // This will work, since args is expanded to 3 strings
-    io.print("The arguments are: %s, %s and %s\n", args.toargs());
+    io.print("The arguments are: %s, %s and %s\n", ... args);
 
 
 
@@ -233,8 +241,8 @@ when calling a method.
 Return values
 -------------
 
-Every method will return at least one value. You can return an explicit value by using 'return', otherwise the result
-of the last used action will be returned.
+Every method will ALWAYS return a value. You can return an explicit value by using 'return', otherwise Saffire will
+return "self".
 
 ::
 
@@ -249,8 +257,9 @@ of the last used action will be returned.
         }
     }
 
-    b = Foo().Bar();     // returns 5
-    b = Foo().Baz();     // returns 2;
+    f = Foo();
+    b = f.Bar();     // returns "f"
+    b = f.Baz();     // returns 2;
 
 
 Self
@@ -297,7 +306,7 @@ If classes are extended from other classes, sometimes you want to call those met
 
 Constructing and destructing objects
 ====================================
-Whenever an object is instantiated, Saffire will automatically call the ctor() method from that class. This is called
+Whenever an object is instantiated, Saffire will automatically call the ``__ctor()`` method from that class. This is called
 the constructor method. It's possible to add multiple arguments to a class, which automatically gets passed to the
 constructor.
 
@@ -306,7 +315,7 @@ constructor.
 	class Foo {
 		protected property foo;
 
-		public method ctor() {
+		public method __ctor() {
 		}
 	}
 
@@ -315,12 +324,12 @@ constructor.
 ::
 
 	class Foo {
-		public method ctor(arg) {
+		public method __ctor(arg) {
 		}
 	}
 
 	a = Foo();             // Not possible, must pass an argument, since we don't have a default value
-	a = Foo("something");  // Automatically calls ctor("something")
+	a = Foo("something");  // Automatically calls __ctor("something")
 
 
 A constructor is the only method that will have a different default return value. Not the result of the last expression
@@ -344,27 +353,27 @@ Destructing an object is done whenever there are no references to that object. I
 during the cleanup.
 
 .. note::
-	It is not possible to call the ctor() or dtor() methods directly. This will result in an exception.
+	It is not possible to call the __ctor() or __dtor() methods directly. This will result in an exception.
 
 ::
 
 	class Foo {
-		public method ctor() { }
-		public method dtor() { }
+		public method __ctor() { }
+		public method __dtor() { }
 	}
 
-	a = Foo();   // Calls ctor()
-	a = Null;    // calls dtor(), since there are no references
+	a = Foo();   // Calls __ctor()
+	a = Null;    // calls __dtor(), since there are no references
 
 ::
 
-	a = Foo();   // Calls ctor()
+	a = Foo();   // Calls __ctor()
 	b = a;      // b is a reference to the object a
-	a = Null;    // Foo.dtor is not called, since there is still a reference
-	b = Null;    // calls dtor(), since there are no references
+	a = Null;    // Foo.__dtor() is not called, since there is still a reference
+	b = Null;    // calls __dtor(), since there are no references
 
 .. hint::
-	Saffire implements through its base object class the refcount() method that returns the number of reference the
+	Saffire implements through its base object class the __refcount() method that returns the number of reference the
 	current object holds.
 
 
@@ -379,7 +388,7 @@ A fluent interface means that (almost) every method will return the actual objec
         protected property _bar;
         protected property _baz;
 
-        public method ctor(arg) {
+        public method __ctor(arg) {
             self._bar = 0;
             self._baz = 0;
         }

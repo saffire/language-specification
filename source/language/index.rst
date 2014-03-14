@@ -12,13 +12,12 @@ Contents:
    data-structures
    keywords
    control-structures
-   modules
    operators
    objects
    interfaces
    overloading
-   magic-methods
    streams
+   modules
 
 
 Indices and tables
