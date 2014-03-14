@@ -1,6 +1,11 @@
 #######
 Modules
 #######
+
+.. warning::
+	Modules works differently as documented here. Please update the documentation.
+
+
 Modules can be seen as "directories". Each directory is a module that consists of files or other directories. Those
 directories are modules too.
 

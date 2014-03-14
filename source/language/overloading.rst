@@ -10,7 +10,9 @@ It's possible in Saffire to overload operators. This means that whenever an oper
 combination with a class, it will automatically call the correct operator overloading method. Operator overloading
 methods are different from regular methods, since they are in the format
 
-	::<operator>
+::
+
+	__opr_<operator>()
 
 
 For instance:
@@ -18,16 +20,16 @@ For instance:
 ::
 
 	class Foo {
-		public method ::+(String s) {
+		public method __opr_add(String s) {
 		}
 	}
 
 	a = Foo();
-	b = a + "test";	// This will call the ::+ method, since we are adding a string
-	b = a + 1;		// This result in an error, since there is no + overloading for a Numerical
+	b = a + "test";     // This will call the __opr_add() method, since we are adding a string
+	b = a + 1;          // This result in an error, since there is no + overloading for a Numerical
 
 
-Operator overloading *can* make it easier to work with objects. Just like you can add numerical values like 1 + 3, it
+Operator overloading **can** make it easier to work with objects. Just like you can add numerical values like 1 + 3, it
 sometimes makes sense to do this with objects as well.
 
 Suppose we have a class Color, which holds a specific color. It would make sense that whever we have a Color("yellow")
@@ -46,7 +48,7 @@ Without operator overloading, you would have to specify another method for this:
 
 .. warning::
 	It's quite possible to overload operators that makes no sense, like subtracting values through the + operator, and
-	adding them with. Always make sure that whenver you overload operators, they make sense in the context you use them.
+	adding them with. Always make sure that whenever you overload operators, they make sense in the context you use them.
 
 
 
@@ -74,7 +76,7 @@ Depending on which arguments you pass, it will call the correct "Bar" method.
 	Foo.bar("foo", 3);      // calls method 4
 
 If the actual class is not found, parent objects and interfaces will be checked. Since all objects extend from the
-Object method, having no typehinting is the same as specifing Object as the typehint. Extended classes have a higher
+Object method, having no typehinting is the same as specifing Base as the typehint. Extended classes have a higher
 priority than base classes:
 
 ::
@@ -109,17 +111,17 @@ But sometimes two different candidates are possible, with the same base path's:
         method Bar(arg1, String arg2);
     }
 
-Calling `Foo.Bar("foo", 1);` is an easy call, method 1 will be called, since that is the only candidate available to
-handle arguments "String, Object". But calling `Foo.Bar("foo", "bar");` isn't easy. Both methods support "String,
+Calling ``Foo.Bar("foo", 1);`` is an easy call, method 1 will be called, since that is the only candidate available to
+handle arguments "String, Object". But calling ``Foo.Bar("foo", "bar");`` isn't easy. Both methods support "String,
 Object" and "Object, String", and there isn't a more specific argumentlist we can match.
 
-In this case, ambiguity arrises. Saffire will resolve this by using the most specific first fit. Since a string matches
+In this case, ambiguity arises. Saffire will resolve this by using the most specific first fit. Since a string matches
 a string better than an object, the first method will be called, since the first argument with the best fit is actually
 the first argument, while the second method has the first best fit in the second argument.
 
 
-Saffire has multiple candidates to call. In this case, Foo.Bar("foo", "bar") could either call method 3 or 4.
-In those situations, Saffire uses the method with the most **specific** argumentlist. In this case it's method 3, since
+Saffire has multiple candidates to call. In this case, ``Foo.Bar("foo", "bar")`` could either call method 3 or 4.
+In those situations, Saffire uses the method with the most **specific** argument list. In this case it's method 3, since
 we specify 2 strings while method 4 specifies 1 string and any object.
 
 

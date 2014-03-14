@@ -4,7 +4,7 @@ Control structures
 
 if
 --
-An if-statement lets you execute code only when a certain condition has been met.
+An ``if``-statement lets you execute code only when a certain condition has been met.
 
 ::
 
@@ -45,7 +45,7 @@ It's also possible to chain if/else statements:
 
 while
 -----
-A **while** loop will iterate over the statements until the condition will be false.
+A ``while`` loop will iterate over the statements until the condition will be false.
 
 ::
 
@@ -62,6 +62,16 @@ The while-structure also accepts an else-statement. If the **initial** evaluatio
 		a++;
 	} else {
 		// Called when a initially was 10 or more
+	}
+
+::
+
+	while (a < 10) {
+		a++;
+		// Goto the 'else' statement when a equals 5
+		if (a == 5) breakelse;
+	} else {
+		// Called when a initially was 10 or more OR when a has been 5
 	}
 
 
@@ -111,7 +121,7 @@ loop:
 
 foreach
 -------
-The **foreach** operator allows you to iterator over **any** object that implements the .iter() method. 
+The **foreach** operator allows you to iterator over **any** object that implements the ``iterator`` interface.
 
 ::
 
@@ -119,7 +129,7 @@ The **foreach** operator allows you to iterator over **any** object that impleme
 		// Do something with value
 	}
 
-The .iter() method returns a tuple of 3 variables:
+The iterator allows you to implement the ``iterator()`` method that returns a tuple of 3 variables:
 
 - value
 - key
@@ -130,7 +140,7 @@ there aren't any keys.
 
 ::
 
-	foreach (list["foo", "bar"] as value, key) {
+	foreach (list[["foo", "bar"]] as value, key) {
 			// value = "foo" or "bar"
 			// key will always be Null
 	}
@@ -139,7 +149,7 @@ Data structures like hashes, which contain keys, will return keys as well.
 
 ::
 
-	foreach (hash[2 : "foo", 4: "bar"] as value, key) {
+	foreach (hash[[2 : "foo", 4: "bar"]] as value, key) {
 			// value = "foo" or "bar"
 			// key will be 2 or 4
 	}
@@ -161,7 +171,7 @@ There is an additional field called ``meta``, which is filled with foreach metad
 
 
 .. note:: 
-	.iter() methods can add additional information to the meta data, for instance, with a priority-queue, the actual
+	The ``iterator`` methods can add additional information to the meta data, for instance, with a priority-queue, the actual
 	priority of an element could be stored in ``meta.priority``
 
 ::
@@ -177,13 +187,9 @@ There is an additional field called ``meta``, which is filled with foreach metad
 		// meta.index == 0..25
 	}	
 
-.. note:: 
-	A data structure (an object that implements a data structure like list or hash), already has the .iter() method
-	implemented and is iterable.
 
-
-`Foreach`_ can be accompanied by an else. This is called whenever the .iter() is not implemented, or when there is an empty
-list, or when `breakelse`_ is issued inside the foreach{} block.
+`Foreach`_ can be accompanied by an else. This is called whenever the iterator is empty or when `breakelse`_ is issued
+inside the `foreach`_ block.
 
 
 
@@ -265,6 +271,50 @@ With **switch** this can be rewritten as:
 		case 3:
 			a += 1;
 	}
+
+
+A `switch`_ statement can also have one ``default`` statement. This will be executed as soon as the switch cannot find
+a valid condition inside all the case statements OR whenever a previous case-statement didn't issue a break, OR when
+inside the switch() you issued a breakelse.
+
+ ::
+
+    switch (10) {
+        case 1 :
+            break;
+        case 2 :
+            break;
+        default :
+            // Will be called, since no case expression matches 10
+            break;
+    }
+
+::
+
+    switch (1) {
+        case 1 :
+            // Called
+        default :
+            // Will also be called, as it falls through from the case-1 statement
+            break;
+        case 2 :
+            break;
+    }
+
+
+::
+
+    switch (1) {
+        case 1 :
+            // Called
+            breakelse;
+        case 2 :
+            break;
+        default :
+            // Will also be called, as there is a breakelse issued.
+            break;
+
+    }
 
 
 

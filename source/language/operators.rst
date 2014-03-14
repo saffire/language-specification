@@ -53,8 +53,7 @@ Order precedence
 ================
 
 .. warning::
-	This is currently taken from PHP as an example. This is not the final order precedence
-
+	This is currently taken from PHP as an example. This is not the correct order precedence of Saffire.
 
 
 +-----------------+------------------------------------------------------------+----------------------------------+

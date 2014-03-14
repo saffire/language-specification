@@ -5,12 +5,13 @@ Scalar types
 Saffire is an object-only language. This means that everything, including strings, numerical values etc, are objects.
 
 **String**
-    This represents an (UTF-8) array of characters. The ``length()`` of a string will always return the number of CHARACTERS,
-    not the number of bytes. Make sure that when dealing with binary data, you are using ``String.bytes()`` instead of
-    ``String`` in order to retrieve the actual bytes.
+    This represents an binary safe string of characters. The ``length()`` of a string will always return the number of
+    CHARACTERS, which is not always the actual number of bytes, depending on which encoding you have used. Make sure
+    that when dealing with binary data, you are using ``String.bytes()`` instead of ``String`` in order to retrieve the
+    actual bytes.
 
-**Numeric**
-    Numeric integer ranging from ``Numeric.MIN`` to ``Numeric.MAX``. Longer numerical values can use a different class
+**Numerical**
+    Numeric integer ranging from ``Numerical.MIN`` to ``Numerical.MAX``. Longer numerical values can use a different class
     (LongNumeric) instead.
 
 **Double**
@@ -19,21 +20,50 @@ Saffire is an object-only language. This means that everything, including string
 **Boolean**
     Representing either a true or a false value.
 
+**Exception**
+    The base exception class. Has a ``getMessage()`` and ``getCode()`` method.
+
+**Hash**
+    A hash datastructure holds key->value pairs.
+
+**List**
+    A list datastructure holds only values.
+
+**Tuple**
+    A datastructure that holds a certain number of elements. Can be used with the () shortcut.
+
+::
+
+    // Both lines does the same thing
+    mytuple = (1,2);
+    mytuple = tuple[[1,2]];
+
+    // pad tuples with null values
+    (a,b,c) = (1,2);
+    // c = NULL
+
+    // Easily switch variables by packing and unpacking tuples
+    (a,b) = (b,a)
+
+**Regex**
+    A regular expression class.
+
 **Null**
     A null class represents a null value.
 
 
-Standard objects
-----------------
+Instances
+---------
+There are a few pre-instantiated objects.
 
 **Null**
-    Represents a null value. This object cannot be extended or changed.
+    Represents a null value.
 
 **True**
-    A boolean representing a true value. This object cannot be extended or changed.
+    A boolean representing a true value.
 
 **False**
-    A boolean representing a false value. This object cannot be extended or changed.
+    A boolean representing a false value.
 
 
 Casting to objects

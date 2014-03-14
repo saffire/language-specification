@@ -9,7 +9,7 @@ Major versions
 Every major release will increase the ``major`` number. There is no time frame for when new major releases will be
 published. A release will be considered major when at least one of the following rules are true:
 
-* There are backward compatibility breaks
+* There can be backward compatibility breaks.
 * There are a certain number of new features that core-developers consider a major release worthy.
 
 

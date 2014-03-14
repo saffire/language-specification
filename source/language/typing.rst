@@ -30,7 +30,7 @@ In this case, Saffire would throw an exception. But you can cast explicitly:
 
 coercion
 ========
-
+To be defined.
 
 
 :Authors:

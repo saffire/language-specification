@@ -7,33 +7,34 @@ Data structures are first-class citizens in Saffire.
 
 Every data structure is handled the same way:
 
-	<structure>[key:val1:val2,key:val1:val2,...]
+	<structure>[[key:val1:val2,key:val1:val2,...]]
 
 A list can be defined as:
 
 ::
 
-	list["foo", "bar", "baz"];
+	list[["foo", "bar", "baz"]];
 
 If a data structure has multiple arguments per element (like a key/value pair), you can separate them with a ``:``
 
 ::
 
-	hash["foo":1, "bar":2, "baz":3];
+	hash[["foo":1, "bar":2, "baz":3]];
 
 More values are possible too, for instance, a priority-queue, which not only has key/value pairs, but also an additional
 priority.
 
 ::
 
-	priority["foo":1:10, "bar":2:10, "foo":3:20];
+	priority[["foo":1:10, "bar":2:10, "foo":3:20]];
 
 
-There are 3 internal data structures available:
+There are a few core data structures available:
 
 - `List`_
 - `Hash`_
 - `Set`_
+- `Tuple`_
 
 It's possible to create your own data structures. Be advised that by using custom data structures, you sacrifice
 memory and speed compared to the native data structures. Your structure will never be as fast as the native ones.
@@ -46,7 +47,7 @@ Lists are data structures with values only. A value can be available multiple ti
 
 ::
 
-	a = list[ "foo", "bar", "baz" ];
+	a = list[[ "foo", "bar", "baz" ]];
 
 this represents a list of three Strings, which can be accessed through the ``[index]`` notation:
 
@@ -65,7 +66,7 @@ Hashes have the same properties as lists, but each value has a unique key.
 
 ::
 
-	a = hash[ 1:"foo", 2:"bar", "test":"baz" ];
+	a = hash[[ 1:"foo", 2:"bar", "test":"baz" ]];
 
 	a[1]       // "foo"
 	a["test"]  // "baz"
@@ -73,7 +74,7 @@ Hashes have the same properties as lists, but each value has a unique key.
 
 
 Set
----
+----
 Sets are like lists, but can only hold unique values. Every time a value is added that already exists, that value will
 be ignored.
 
@@ -90,8 +91,8 @@ Sets can be used to quickly add, subtract or check items.
 Tuples
 ------
 Tuples work a bit differently than the other data structures. A tuple isn't a data structure like others inside Saffire,
-but it's an immutable structure that can hold one or more other elements. Once a tuple has been created, you cannot add
-or remove any elements to it.
+but it's an immutable structure that can hold one or more other elements. Once a tuple has been instantiated, you cannot
+add or remove any elements to it.
 
 ::
 
