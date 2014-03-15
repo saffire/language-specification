@@ -50,7 +50,7 @@ Constants
 Methods
 -------
 
-.. data:: string.length()
+.. method:: string.length()
 
     Returns the length of the string in the number of characters based on the conversion used. If the conversion is
     standard ``BYTE``, every byte equals one character and thus ``length()`` and ``byte_length()`` are always equal.
@@ -65,7 +65,7 @@ Methods
         "Bjšrk".utf16().length()  // 5
 
 
-.. data:: string.byte_length()
+.. method:: string.byte_length()
 
     Returns the length of the string in bytes, based on the conversion used
 
@@ -77,7 +77,7 @@ Methods
         "Bjšrk".utf16().byte_length()    // 10 bytes (5x utf16)
 
 
-.. data:: string.upper()
+.. method:: string.upper()
 
     Returns a string with all characters uppercased (based on the conversion and locale used)
 
@@ -86,7 +86,7 @@ Methods
         "foo".upper()     // "FOO"
 
 
-.. data:: string.lower()
+.. method:: string.lower()
 
     Returns a string with all characters lowercased (based on the conversion and locale used)
 
@@ -95,7 +95,7 @@ Methods
         "FOO".upper()     // "foo"
 
 
-.. data:: string.reverse()
+.. method:: string.reverse()
 
     Reverse a string with all characters lowercased (based on the conversion and locale used)
 
@@ -104,7 +104,7 @@ Methods
         "FOO".upper()     // "foo"
 
 
-.. data:: string.toLocale()
+.. method:: string.toLocale()
 
     Negate a numerical.
 
@@ -114,18 +114,7 @@ Methods
         i = -4.neg();       // i = 4
 
 
-.. data:: string.setLocale()
-
-    Negate a numerical.
-
-    ::
-
-        i = 1.neg();        // i = -1
-        i = -4.neg();       // i = 4
-
-
-
-.. data:: string.splice()
+.. method:: string.setLocale()
 
     Negate a numerical.
 
@@ -136,9 +125,20 @@ Methods
 
 
 
+.. method:: string.splice()
+
+    Negate a numerical.
+
+    ::
+
+        i = 1.neg();        // i = -1
+        i = -4.neg();       // i = 4
 
 
-.. data:: string.__boolean()
+
+
+
+.. method:: string.__boolean()
 
     Converts a numerical to a boolean. Will return ``false`` when the numerical is ``0``. ``true`` otherwise.
 
@@ -149,7 +149,7 @@ Methods
         -1.__boolean();     // true
 
 
-.. data:: string.__numerical()
+.. method:: string.__numerical()
 
     Converts a numerical to a string.
 
@@ -161,7 +161,7 @@ Methods
         Numerical.MIN.__string();       // "-9223372036854775808"
 
 
-.. data:: string.__opr_add()
+.. method:: string.__opr_add()
 
     The + operator. Adds two numericals.
 
@@ -170,7 +170,7 @@ Methods
         return 1 + 4;       // 5
 
 
-.. data:: string.__opr_sub()
+.. method:: string.__opr_sub()
 
     The - operator. Subtracts two numericals.
 
@@ -179,7 +179,7 @@ Methods
         return 1 - 4;       // -3
 
 
-.. data:: string.__opr_mul()
+.. method:: string.__opr_mul()
 
     The * operator. Multiplies two numericals.
 
@@ -188,7 +188,7 @@ Methods
         return 2 * 8;       // 16
 
 
-.. data:: string.__opr_div()
+.. method:: string.__opr_div()
 
     The * operator. divides two numericals. If dividing by 0, it will throw an ``DivideByZeroException``. If the division
     is not a whole number, it will return a ``Decimal``, otherwise it will return a ``Numerical``.
@@ -200,7 +200,7 @@ Methods
         return 9 / 3;       // Double(3.333333)
 
 
-.. data:: string.__opr_mod()
+.. method:: string.__opr_mod()
 
     The % operator. Returns the modulus of two numericals.
 
@@ -211,7 +211,7 @@ Methods
         return 2 % 4;       // Numerical(2)
 
 
-.. data:: string.__opr_and()
+.. method:: string.__opr_and()
 
     The & bitwise operator. Returns the bitwise AND of two numericals.
 
@@ -222,7 +222,7 @@ Methods
         return 15 & 4;       // Numerical(4)
 
 
-.. data:: string.__opr_or()
+.. method:: string.__opr_or()
 
     The | bitwise operator. Returns the bitwise OR of two numericals.
 
@@ -233,7 +233,7 @@ Methods
         return 15 | 4;      // Numerical(15)
 
 
-.. data:: string.__opr_xor()
+.. method:: string.__opr_xor()
 
     The ^ bitwise operator. Returns the bitwise XOR of two numericals.
 
@@ -246,7 +246,7 @@ Methods
 
 
 
-.. data:: string.__cmp_eq()
+.. method:: string.__cmp_eq()
 
     The == comparison. Returns ``true`` when both numerical values are equal.
 
@@ -255,7 +255,7 @@ Methods
         if ( 5 == 5) { }        // true
 
 
-.. data:: string.__cmp_ne()
+.. method:: string.__cmp_ne()
 
     The != comparison. Returns ``true`` when both numerical values are **not** equal.
 
@@ -266,7 +266,7 @@ Methods
 
 
 
-.. data:: string.__cmp_lt()
+.. method:: string.__cmp_lt()
 
     The < comparison. Returns ``true`` when the first numerical is less than the second.
 
@@ -277,7 +277,7 @@ Methods
         if ( 1 < 1) { }        // false
 
 
-.. data:: string.__cmp_gt()
+.. method:: string.__cmp_gt()
 
     The > comparison. Returns ``true`` when the first numerical is greater than the second.
 
@@ -288,7 +288,7 @@ Methods
         if ( 1 > 1) { }        // false
 
 
-.. data:: string.__cmp_le()
+.. method:: string.__cmp_le()
 
     The <= comparison. Returns ``true`` when the first numerical is greater or equal as the second.
 
@@ -299,7 +299,7 @@ Methods
         if ( 1 <= 1) { }        // true
 
 
-.. data:: string.__cmp_ge()
+.. method:: string.__cmp_ge()
 
     The >= comparison. Returns ``true`` when the first numerical is less or equal as the second.
 
@@ -310,7 +310,7 @@ Methods
         if ( 1 >= 1) { }        // true
 
 
-.. data:: string.__cmp_in()
+.. method:: string.__cmp_in()
 
     The >= comparison. Returns ``true`` when the first numerical is less or equal as the second.
 
@@ -321,7 +321,7 @@ Methods
         if ( 1 >= 1) { }        // true
 
 
-.. data:: string.__cmp_ni()
+.. method:: string.__cmp_ni()
 
     The >= comparison. Returns ``true`` when the first numerical is less or equal as the second.
 
@@ -337,7 +337,7 @@ Methods
 
 
 
-.. data:: string.pad(numerical width, numerical direction = String.PAD_RIGHT, string padding_character = " ")
+.. method:: string.pad(numerical width, numerical direction = String.PAD_RIGHT, string padding_character = " ")
 
     width
         The width on which the string must be padded. If the string is larger, no padding will occur and
@@ -371,27 +371,27 @@ Methods
         io.print("foobar".pad(2));                          // "foobar"
 
 
-.. data:: string.utf8()
+.. method:: string.utf8()
 
     This method is a shortcut for convert("utf-8")
 
-.. data:: string.utf16()
+.. method:: string.utf16()
 
     This method is a shortcut for convert("utf-16")
 
-.. data:: string.convert(string charset)
+.. method:: string.convert(string charset)
 
     Convert the string to the specified character set.
 
-.. data:: string.byte_length()
+.. method:: string.byte_length()
 
     Returns number of BYTES in this string (which can be more than actual characters)
 
-.. data:: string.char_length()
+.. method:: string.char_length()
 
     Alias for string.lenght()
 
-.. data:: string.isNumerical()
+.. method:: string.isNumerical()
 
     Returns ``true`` when the full string contains a numerical value. ``false`` otherwise.
 
@@ -404,7 +404,7 @@ Methods
         "-124".isNumerical();   // true
 
 
-.. data:: string.isHex()
+.. method:: string.isHex()
 
     Returns ``true`` when the full string contains a hexadecimal value. ``false`` otherwise. Note that this value does
     not neccesarily can be converted to a numerical, as the hex-string might be larger than a numerical could fit.
@@ -416,15 +416,15 @@ Methods
         "1A".isHex();       // true
         "0xA".isHex();      // false    ('x' is not a valid hex character)
 
-.. data:: string.isAlpha()
+.. method:: string.isAlpha()
 
     Returns ``true`` when the string contains alphabet values (A-Z and a-z)
 
-.. data:: string.isAlphaNum()
+.. method:: string.isAlphaNum()
 
     Returns ``true`` when the string contains alphanumericals values (A-Z and a-z and 0-9)
 
-.. data:: string.isLower()
+.. method:: string.isLower()
 
     Returns ``true`` when the string contains only lowercase characters, and ONLY alpha characters.
 
@@ -434,11 +434,11 @@ Methods
         "fOO".isLower()         // false
         "1234abcd".isLower()    // false, 1234 are not validad characters
 
-.. data:: string.isSpace()
+.. method:: string.isSpace()
 
     Returns ``true`` when the string contains only space characters (\t \n \r [space] etc)
 
-.. data:: string.isUpper()
+.. method:: string.isUpper()
 
     Returns ``true`` when the string contains only uppercase characters, and ONLY alpha characters.
 
@@ -449,7 +449,7 @@ Methods
         "1234ABCD".isLower()    // false, 1234 are not valid characters
 
 
-.. data:: string.capitalize()
+.. method:: string.capitalize()
 
     Capitalize string. Every word will start with a uppercase character. All other characters will be lower case.
 
@@ -458,7 +458,7 @@ Methods
         "hello, this iS a TEST".capitalize(); // "Hello, This Is A Test"
 
 
-.. data:: string.replace(string old, string new)
+.. method:: string.replace(string old, string new)
 
     Replaces part of the string with another string
 
@@ -467,7 +467,7 @@ Methods
         "foobarbar".replace("bar", "test", 1);      // "footesttest"
 
 
-.. data:: string.replace(string old, string new, numerical count)
+.. method:: string.replace(string old, string new, numerical count)
 
     Replaces part of the string with another string, but at maximum of ``count`` times.
 
@@ -475,25 +475,25 @@ Methods
 
         "foobarbar".replace("bar", "test", 1);      // "footestbar"
 
-.. data:: string.split(string old, numerical max)
+.. method:: string.split(string old, numerical max)
 
-.. data:: string.trim(string charlist, directory = string.TRIM_RIGHT)
+.. method:: string.trim(string charlist, directory = string.TRIM_RIGHT)
 
-.. data:: string.startsWith(string prefix, boolean ignoreCase = false)
+.. method:: string.startsWith(string prefix, boolean ignoreCase = false)
 
     Returns ``true`` when the string starts with ``prefix``. When ``ignoreCase`` is true, it will check case insensitive.
 
-.. data:: string.endsWith(string postfix, boolean ignoreCase = false)
+.. method:: string.endsWith(string postfix, boolean ignoreCase = false)
 
     Returns ``true`` when the string ends with ``postfix``. When ``ignoreCase`` is true, it will check case insensitive.
 
-.. data:: string.match(Regex re)
+.. method:: string.match(Regex re)
 
     Matches the string against the regular expression. Returns ``true`` when the regex matches
 
-.. data:: string.format()
+.. method:: string.format()
 
-.. data:: string.substring()
+.. method:: string.substring()
 
     Alias for `string.splice`_
 

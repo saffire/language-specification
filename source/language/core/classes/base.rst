@@ -20,19 +20,19 @@ This means that the following are identical:
 Methods
 -------
 
-*   base.__new()
+.. method:: base.__new()
 
     Called when instantiating a class. This method cannot be called directly.
 
-*   base.__ctor()
+.. method:: base.__ctor()
 
     Called when instantiating a class. This method cannot be called directly.
 
-*   base.__dtor()
+.. method:: base.__dtor()
 
     Called when destroying an instance . This method cannot be called directly.
 
-*   base.__properties()
+.. method:: base.__properties()
 
     Returns a ``hash`` of all the properties of the given instance.
 
@@ -49,7 +49,7 @@ Methods
 
 
 
-*   base.__methods()
+.. method:: base.__methods()
 
     Returns a ``hash`` of all the methods of the given instance.
 
@@ -66,7 +66,7 @@ Methods
 
 
 
-*   base.__parents()
+.. method:: base.__parents()
 
     Returns a ``list`` of all the parents of the given instance.
 
@@ -88,7 +88,7 @@ Methods
 
 
 
-*   base.__name()
+.. method:: base.__name()
 
     Returns the name of the class.
 
@@ -106,7 +106,7 @@ Methods
         io.print(b.__name());       // "bar"
 
 
-*   base.__implements()
+.. method:: base.__implements()
 
     Returns a ``list`` of all the interfaces the instance implements.
 
@@ -118,11 +118,11 @@ Methods
         io.print(s.__implements());     // list['datastructure', 'iterator', 'subscript'];
 
 
-*   base.__memory()
+.. method:: base.__memory()
 
     Returns the memory usage of the instance.
 
-*   base.__annotations()
+.. method:: base.__annotations()
 
     Returns a list of all annotations.
 
@@ -169,7 +169,7 @@ Methods
         */
 
 
-*   base.__clone()
+.. method:: base.__clone()
 
     Clones the instance into a new instance. Creates an exact replica.
 
@@ -189,7 +189,7 @@ Methods
         io.print(h.a);      // 1, as f and h are different objects
 
 
-*   base.__immutable?()
+.. method:: base.__immutable?()
 
     Returns ``true`` when the instance cannot be changed (no properties can be changed). ``false`` otherwise.
 
@@ -204,7 +204,7 @@ Methods
         io.print(f.__immutable?());   // Returns true
 
 
-*   base.__immutable()
+.. method:: base.__immutable()
 
     Sets the instance to immutable. No more changes can be made to its properties. Once immutable, the isntance cannot
     be set mutable again.
@@ -216,7 +216,7 @@ Methods
         f.__immutable();
         f.a = 2;            // will throw exception
 
-*   base.__destroy()
+.. method:: base.__destroy()
 
     Destroy the instance.
 
@@ -227,7 +227,7 @@ Methods
 
         a.__id();       // throw exception, as 'a' is not declared anymore.
 
-*   base.__refcount()
+.. method:: base.__refcount()
 
     Returns the number of times this instance is referenced.
 
@@ -249,7 +249,7 @@ Methods
 
 
 
-*   base.__id()
+.. method:: base.__id()
 
     Returns a unique identifier for this instance.
 
