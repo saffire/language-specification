@@ -60,9 +60,9 @@ Methods
     ::
 
         "foo".length()            // 3
-        "Björk".length()          // 6 (based on the default utf8 conversion)
-        "Björk".utf8().length()   // 5
-        "Björk".utf16().length()  // 5
+        "Bj√∂rk".length()          // 6 (based on the default utf8 conversion)
+        "Bj√∂rk".utf8().length()   // 5
+        "Bj√∂rk".utf16().length()  // 5
 
 
 .. method:: string.byte_length()
@@ -72,9 +72,9 @@ Methods
     ::
 
         "foo".byte_length()              // 3
-        "Björk".byte_length()            // 6
-        "Björk".byte_length()            // 6 (5x utf8, from which the ö consists 2 bytes)
-        "Björk".utf16().byte_length()    // 10 bytes (5x utf16)
+        "Bj√∂rk".byte_length()            // 6
+        "Bj√∂rk".byte_length()            // 6 (5x utf8, from which the √∂ consists 2 bytes)
+        "Bj√∂rk".utf16().byte_length()    // 10 bytes (5x utf16)
 
 
 .. method:: string.upper()
