@@ -42,7 +42,7 @@ Constants
 Methods
 -------
 
-.. data:: numerical.neg()
+.. method:: numerical.neg()
 
     Negate a numerical.
 
@@ -52,12 +52,12 @@ Methods
         i = -4.neg();       // i = 4
 
 
-.. data:: numerical.abs()
+.. method:: numerical.abs()
 
     Returns the absolute value of a numerical
 
 
-.. data:: numerical.__boolean()
+.. method:: numerical.__boolean()
 
     Converts a numerical to a boolean. Will return ``false`` when the numerical is ``0``. ``true`` otherwise.
 
@@ -68,7 +68,7 @@ Methods
         -1.__boolean();     // true
 
 
-.. data:: numerical.__string()
+.. method:: numerical.__string()
 
     Converts a numerical to a string.
 
@@ -80,7 +80,7 @@ Methods
         Numerical.MIN.__string();       // "-9223372036854775808"
 
 
-.. data:: numerical.__opr_add()
+.. method:: numerical.__opr_add()
 
     The + operator. Adds two numericals.
 
@@ -89,7 +89,7 @@ Methods
         return 1 + 4;       // 5
 
 
-.. data:: numerical.__opr_sub()
+.. method:: numerical.__opr_sub()
 
     The - operator. Subtracts two numericals.
 
@@ -98,7 +98,7 @@ Methods
         return 1 - 4;       // -3
 
 
-.. data:: numerical.__opr_mul()
+.. method:: numerical.__opr_mul()
 
     The * operator. Multiplies two numericals.
 
@@ -107,7 +107,7 @@ Methods
         return 2 * 8;       // 16
 
 
-.. data:: numerical.__opr_div()
+.. method:: numerical.__opr_div()
 
     The * operator. divides two numericals. If dividing by 0, it will throw an ``DivideByZeroException``. If the division
     is not a whole number, it will return a ``Decimal``, otherwise it will return a ``Numerical``.
@@ -119,7 +119,7 @@ Methods
         return 9 / 3;       // Double(3.333333)
 
 
-.. data:: numerical.__opr_mod()
+.. method:: numerical.__opr_mod()
 
     The % operator. Returns the modulus of two numericals.
 
@@ -130,7 +130,7 @@ Methods
         return 2 % 4;       // Numerical(2)
 
 
-.. data:: numerical.__opr_and()
+.. method:: numerical.__opr_and()
 
     The & bitwise operator. Returns the bitwise AND of two numericals.
 
@@ -141,7 +141,7 @@ Methods
         return 15 & 4;       // Numerical(4)
 
 
-.. data:: numerical.__opr_or()
+.. method:: numerical.__opr_or()
 
     The | bitwise operator. Returns the bitwise OR of two numericals.
 
@@ -152,7 +152,7 @@ Methods
         return 15 | 4;      // Numerical(15)
 
 
-.. data:: numerical.__opr_xor()
+.. method:: numerical.__opr_xor()
 
     The ^ bitwise operator. Returns the bitwise XOR of two numericals.
 
@@ -164,7 +164,7 @@ Methods
         return 7 | 7;       // Numerical(0)
 
 
-.. data:: numerical.__opr_shl()
+.. method:: numerical.__opr_shl()
 
     The << bitwise operator. Shifts the bits to the left a number of times. Will pad with 0's
 
@@ -179,7 +179,7 @@ Methods
         return 7 << 7;       // Numerical(896)
 
 
-.. data:: numerical.__opr_shr()
+.. method:: numerical.__opr_shr()
 
     The >> bitwise operator. Shifts the bits to the right a number of times. Will pad with 0's
 
@@ -195,7 +195,7 @@ Methods
         return 7 << 7;       // Numerical(896)
 
 
-.. data:: numerical.__cmp_eq()
+.. method:: numerical.__cmp_eq()
 
     The == comparison. Returns ``true`` when both numerical values are equal.
 
@@ -204,7 +204,7 @@ Methods
         if ( 5 == 5) { }        // true
 
 
-.. data:: numerical.__cmp_ne()
+.. method:: numerical.__cmp_ne()
 
     The != comparison. Returns ``true`` when both numerical values are **not** equal.
 
@@ -215,7 +215,7 @@ Methods
 
 
 
-.. data:: numerical.__cmp_lt()
+.. method:: numerical.__cmp_lt()
 
     The < comparison. Returns ``true`` when the first numerical is less than the second.
 
@@ -226,7 +226,7 @@ Methods
         if ( 1 < 1) { }        // false
 
 
-.. data:: numerical.__cmp_gt()
+.. method:: numerical.__cmp_gt()
 
     The > comparison. Returns ``true`` when the first numerical is greater than the second.
 
@@ -237,7 +237,7 @@ Methods
         if ( 1 > 1) { }        // false
 
 
-.. data:: numerical.__cmp_le()
+.. method:: numerical.__cmp_le()
 
     The <= comparison. Returns ``true`` when the first numerical is greater or equal as the second.
 
@@ -248,7 +248,7 @@ Methods
         if ( 1 <= 1) { }        // true
 
 
-.. data:: numerical.__cmp_ge()
+.. method:: numerical.__cmp_ge()
 
     The >= comparison. Returns ``true`` when the first numerical is less or equal as the second.
 
