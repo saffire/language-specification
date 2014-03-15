@@ -17,15 +17,9 @@ Contents:
    interfaces
    overloading
    streams
+   core/index
    modules
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 
 :Date: |today|
