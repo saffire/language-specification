@@ -1,9 +1,9 @@
 =======
-Regex
+Datastructure
 =======
 
 .. warning::
-This class is not yet documented.
+This interface is not yet documented.
 
 
 Methods
@@ -21,3 +21,5 @@ Operator methods
 Comparison methods
 ******************
 
+
+D

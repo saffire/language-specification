@@ -6,8 +6,6 @@ The ``string`` class represents a serie of bytes. They can be seen as text, but 
 ``string`` class is binary safe and can hold up to 2^64 bytes.
 
 
-
-
 ::
 
     import io;
@@ -19,318 +17,9 @@ The ``string`` class represents a serie of bytes. They can be seen as text, but 
     io.print("bar".reverse().upper());      // "RAB"
 
 
-Constants
----------
-
-.. data:: string.PAD_LEFT
-
-    See `string.pad`_
-
-.. data:: string.PAD_RIGHT
-
-    See `string.pad`_
-
-.. data:: string.PAD_BOTH
-
-    See `string.pad`_
-
-.. data:: string.TRIM_LEFT
-
-    See `string.trim`_
-
-.. data:: string.TRIM_RIGHT
-
-    See `string.trim`_
-
-.. data:: string.TRIM_BOTH
-
-    See `string.trim`_
-
 
 Methods
 -------
-
-.. method:: string.length()
-
-    Returns the length of the string in the number of characters based on the conversion used. If the conversion is
-    standard ``BYTE``, every byte equals one character and thus ``length()`` and ``byte_length()`` are always equal.
-    However, when the conversion is set to ``UTF-8``, the ``byte_length()`` can differ from the ``length()`` if there
-    are characters that are based on multiple bytes.
-
-    ::
-
-        "foo".length()            // 3
-        "Björk".length()          // 6 (based on the default utf8 conversion)
-        "Björk".utf8().length()   // 5
-        "Björk".utf16().length()  // 5
-
-
-.. method:: string.byte_length()
-
-    Returns the length of the string in bytes, based on the conversion used
-
-    ::
-
-        "foo".byte_length()              // 3
-        "Björk".byte_length()            // 6
-        "Björk".byte_length()            // 6 (5x utf8, from which the ö consists 2 bytes)
-        "Björk".utf16().byte_length()    // 10 bytes (5x utf16)
-
-
-.. method:: string.upper()
-
-    Returns a string with all characters uppercased (based on the conversion and locale used)
-
-    ::
-
-        "foo".upper()     // "FOO"
-
-
-.. method:: string.lower()
-
-    Returns a string with all characters lowercased (based on the conversion and locale used)
-
-    ::
-
-        "FOO".upper()     // "foo"
-
-
-.. method:: string.reverse()
-
-    Reverse a string with all characters lowercased (based on the conversion and locale used)
-
-    ::
-
-        "FOO".upper()     // "foo"
-
-
-.. method:: string.toLocale()
-
-    Negate a numerical.
-
-    ::
-
-        i = 1.neg();        // i = -1
-        i = -4.neg();       // i = 4
-
-
-.. method:: string.setLocale()
-
-    Negate a numerical.
-
-    ::
-
-        i = 1.neg();        // i = -1
-        i = -4.neg();       // i = 4
-
-
-
-.. method:: string.splice()
-
-    Negate a numerical.
-
-    ::
-
-        i = 1.neg();        // i = -1
-        i = -4.neg();       // i = 4
-
-
-
-
-
-.. method:: string.__boolean()
-
-    Converts a numerical to a boolean. Will return ``false`` when the numerical is ``0``. ``true`` otherwise.
-
-    ::
-
-        1.__boolean();      // true
-        0.__boolean();      // false
-        -1.__boolean();     // true
-
-
-.. method:: string.__numerical()
-
-    Converts a numerical to a string.
-
-    ::
-
-        1.__string();                   // "1"
-        0.__string();                   // "0"
-        -1.__string();                  // "-1"
-        Numerical.MIN.__string();       // "-9223372036854775808"
-
-
-.. method:: string.__opr_add()
-
-    The + operator. Adds two numericals.
-
-    ::
-
-        return 1 + 4;       // 5
-
-
-.. method:: string.__opr_sub()
-
-    The - operator. Subtracts two numericals.
-
-    ::
-
-        return 1 - 4;       // -3
-
-
-.. method:: string.__opr_mul()
-
-    The * operator. Multiplies two numericals.
-
-    ::
-
-        return 2 * 8;       // 16
-
-
-.. method:: string.__opr_div()
-
-    The * operator. divides two numericals. If dividing by 0, it will throw an ``DivideByZeroException``. If the division
-    is not a whole number, it will return a ``Decimal``, otherwise it will return a ``Numerical``.
-
-    ::
-
-        return 8 / 4;       // Numerical(2)
-        return 10 / 4;       // Double(2.5)
-        return 9 / 3;       // Double(3.333333)
-
-
-.. method:: string.__opr_mod()
-
-    The % operator. Returns the modulus of two numericals.
-
-    ::
-
-        return 8 % 4;       // Numerical(0)
-        return 9 % 4;       // Numerical(1)
-        return 2 % 4;       // Numerical(2)
-
-
-.. method:: string.__opr_and()
-
-    The & bitwise operator. Returns the bitwise AND of two numericals.
-
-    ::
-
-        return 1 & 5;       // Numerical(5)
-        return 9 & 4;       // Numerical(0)
-        return 15 & 4;       // Numerical(4)
-
-
-.. method:: string.__opr_or()
-
-    The | bitwise operator. Returns the bitwise OR of two numericals.
-
-    ::
-
-        return 1 | 4;       // Numerical(5)
-        return 9 | 4;       // Numerical(13)
-        return 15 | 4;      // Numerical(15)
-
-
-.. method:: string.__opr_xor()
-
-    The ^ bitwise operator. Returns the bitwise XOR of two numericals.
-
-    ::
-
-        return 1 | 4;       // Numerical(5)
-        return 9 | 4;       // Numerical(13)
-        return 15 | 4;      // Numerical(11)
-        return 7 | 7;       // Numerical(0)
-
-
-
-.. method:: string.__cmp_eq()
-
-    The == comparison. Returns ``true`` when both numerical values are equal.
-
-    ::
-
-        if ( 5 == 5) { }        // true
-
-
-.. method:: string.__cmp_ne()
-
-    The != comparison. Returns ``true`` when both numerical values are **not** equal.
-
-    ::
-
-        if ( 1 != 5) { }        // true
-        if ( 5 != 5) { }        // false
-
-
-
-.. method:: string.__cmp_lt()
-
-    The < comparison. Returns ``true`` when the first numerical is less than the second.
-
-    ::
-
-        if ( 1 < 5) { }        // true
-        if ( 5 < 1) { }        // false
-        if ( 1 < 1) { }        // false
-
-
-.. method:: string.__cmp_gt()
-
-    The > comparison. Returns ``true`` when the first numerical is greater than the second.
-
-    ::
-
-        if ( 1 > 5) { }        // false
-        if ( 5 > 1) { }        // true
-        if ( 1 > 1) { }        // false
-
-
-.. method:: string.__cmp_le()
-
-    The <= comparison. Returns ``true`` when the first numerical is greater or equal as the second.
-
-    ::
-
-        if ( 1 <= 5) { }        // true
-        if ( 5 <= 1) { }        // false
-        if ( 1 <= 1) { }        // true
-
-
-.. method:: string.__cmp_ge()
-
-    The >= comparison. Returns ``true`` when the first numerical is less or equal as the second.
-
-    ::
-
-        if ( 1 >= 5) { }        // false
-        if ( 5 >= 1) { }        // true
-        if ( 1 >= 1) { }        // true
-
-
-.. method:: string.__cmp_in()
-
-    The >= comparison. Returns ``true`` when the first numerical is less or equal as the second.
-
-    ::
-
-        if ( 1 >= 5) { }        // false
-        if ( 5 >= 1) { }        // true
-        if ( 1 >= 1) { }        // true
-
-
-.. method:: string.__cmp_ni()
-
-    The >= comparison. Returns ``true`` when the first numerical is less or equal as the second.
-
-    ::
-
-        if ( 1 >= 5) { }        // false
-        if ( 5 >= 1) { }        // true
-        if ( 1 >= 1) { }        // true
-
 
 .. warning::
 	The following methods are not yet implemented.
@@ -496,4 +185,197 @@ Methods
 .. method:: string.substring()
 
     Alias for `string.splice`_
+
+
+.. method:: string.dup(Numerical times = 1)
+
+    Duplicates the string multiple times.
+
+    ::
+
+        "foo".dup();        // "foofoo"
+        "foo".dup(2);       // "foofoofoo"
+
+
+
+Cast methods
+************
+
+.. method:: boolean.__numerical
+
+    Returns a numerical representation of the boolean. This can be either a 1 when true, or 0 when false.
+
+
+.. method:: boolean.__string
+
+    Returns a string representation of the boolean. This can be either ``string("true")`` or ``string("false")``.
+
+
+
+Operator methods
+****************
+
+.. method:: string.__opr_add()
+
+    The + operator. Adds two booleans.
+
+    ::
+
+        return 1 + 4;       // 5
+
+
+.. method:: string.__opr_sub()
+
+    The - operator. Subtracts two numericals.
+
+    ::
+
+        return 1 - 4;       // -3
+
+
+.. method:: string.__opr_mul()
+
+    The * operator. Multiplies two numericals.
+
+    ::
+
+        return 2 * 8;       // 16
+
+
+.. method:: string.__opr_div()
+
+    The * operator. divides two numericals. If dividing by 0, it will throw an ``DivideByZeroException``. If the division
+    is not a whole number, it will return a ``Decimal``, otherwise it will return a ``Numerical``.
+
+    ::
+
+        return 8 / 4;       // Numerical(2)
+        return 10 / 4;       // Double(2.5)
+        return 9 / 3;       // Double(3.333333)
+
+
+.. method:: string.__opr_mod()
+
+    The % operator. Returns the modulus of two numericals.
+
+    ::
+
+        return 8 % 4;       // Numerical(0)
+        return 9 % 4;       // Numerical(1)
+        return 2 % 4;       // Numerical(2)
+
+
+.. method:: string.__opr_and()
+
+    The & bitwise operator. Returns the bitwise AND of two numericals.
+
+    ::
+
+        return 1 & 5;       // Numerical(5)
+        return 9 & 4;       // Numerical(0)
+        return 15 & 4;       // Numerical(4)
+
+
+.. method:: string.__opr_or()
+
+    The | bitwise operator. Returns the bitwise OR of two numericals.
+
+    ::
+
+        return 1 | 4;       // Numerical(5)
+        return 9 | 4;       // Numerical(13)
+        return 15 | 4;      // Numerical(15)
+
+
+.. method:: string.__opr_xor()
+
+    The ^ bitwise operator. Returns the bitwise XOR of two numericals.
+
+    ::
+
+        return 1 | 4;       // Numerical(5)
+        return 9 | 4;       // Numerical(13)
+        return 15 | 4;      // Numerical(11)
+        return 7 | 7;       // Numerical(0)
+
+
+
+Comparison methods
+******************
+
+
+.. method:: string.__cmp_eq()
+
+    The == comparison. Returns ``true`` when both strings values are equal. Note that they do not have to be the exact
+    same reference. The comparison
+
+    ::
+
+        if ( "foo" == "foo") { }        // true
+        if ( "foo" == "bar") { }        // false
+
+
+.. method:: string.__cmp_ne()
+
+    The != comparison. Returns ``true`` when both string values are **not** equal.
+
+    ::
+
+        if ( "foo" != "bar") { }           // true
+        if ( "foo" != "foo".upper()) { }   // true
+
+
+
+.. method:: string.__cmp_lt()
+
+    The < comparison. Returns ``true`` when the first string is less than the second string. The comparison is done
+    through standard string compare, in the string's collation.
+
+    As taken from the ICU documentation:
+
+    * The letters A-Z can be sorted in a different order than in English. For example, in Lithuanian, "y" is sorted between "i" and "k".
+    * Accented letters can be treated as distinct letters. For example, "Å" in Danish is treated as a separate letter that sorts just after "Z".
+
+
+.. method:: string.__cmp_gt()
+
+    The > comparison. Returns ``true`` when the first string is greater than the second.
+
+
+
+.. method:: string.__cmp_le()
+
+    The <= comparison. Returns ``true`` when the first string is greater or equal as the second.
+
+
+.. method:: string.__cmp_ge()
+
+    The >= comparison. Returns ``true`` when the first string is less or equal as the second.
+
+
+
+.. method:: string.__cmp_in()
+
+    The 'in' comparison. Returns ``true`` when the first string can be found inside the second string.
+
+    ::
+
+        if ("foo" in "foobar") { }      // true
+
+        if ("o" in "foobar") { }        // true
+
+        if ("x" in "foobar") { }        // false
+
+
+.. method:: string.__cmp_ni()
+
+    The 'not in' comparison. Returns ``true`` when the first string cannot be found inside the second string.
+
+    ::
+
+        if ("foo" not in "foobar") { }   // false
+
+        if ("o" not in "foobar") { }     // false
+
+        if ("x" not in "foobar") { }     // true
 
