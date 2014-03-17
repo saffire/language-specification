@@ -57,6 +57,10 @@ Methods
     Returns the absolute value of a numerical
 
 
+Cast methods
+************
+
+
 .. method:: numerical.__boolean()
 
     Converts a numerical to a boolean. Will return ``false`` when the numerical is ``0``. ``true`` otherwise.
@@ -78,6 +82,11 @@ Methods
         0.__string();                   // "0"
         -1.__string();                  // "-1"
         Numerical.MIN.__string();       // "-9223372036854775808"
+
+
+
+Operator methods
+****************
 
 
 .. method:: numerical.__opr_add()
@@ -193,6 +202,12 @@ Methods
         return 9 << 4;       // Numerical(144)
         return 15 << 4;      // Numerical(240)
         return 7 << 7;       // Numerical(896)
+
+
+
+Comparison methods
+******************
+
 
 
 .. method:: numerical.__cmp_eq()

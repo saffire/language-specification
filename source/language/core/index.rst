@@ -9,7 +9,7 @@ classes
 -------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    classes/base
    classes/boolean
@@ -21,6 +21,16 @@ classes
    classes/regex
    classes/string
    classes/tuple
+
+interfaces
+----------
+
+.. toctree::
+   :maxdepth: 2
+
+   interfaces/iterator
+   interfaces/datastructure
+   interfaces/subscription
 
 modules
 -------
